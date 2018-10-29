@@ -1,0 +1,24 @@
+body{
+  background-color: #dddbfd;
+  font-family: "Trebuchet MS";
+}
+
+#title {
+  margin: 0.5%;
+  border-style: outset;
+  font-family: "Trebuchet MS";
+
+}
+
+.collapse{
+  margin: 2%;
+}
+
+.projectButton {
+  text-align: center;
+
+}
+
+.formItems {
+  margin-top: 0.5%;
+}
