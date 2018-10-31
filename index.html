@@ -1,14 +1,13 @@
-<!DOCTYPE html>
 <html lang="en-GB">
 
 <head>
   <title id="title">Project Management Application</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="images/logo.ico">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
@@ -16,88 +15,27 @@
     <div class="container col-lg-12" id="title">
       <h1>Project Management Application</h1>
     </div>
-    <div class="container col-lg-12" id="main body, projects">
-      <table style="width:100%">
-        <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Age</th>
-        </tr>
-        <tr>
-          <td>Jill</td>
-          <td>Smith</td>
-          <td>50</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
+    <div class="container col-lg-12" id="main body">
+      <table class="col-lg-12" style="width:100%">
+        <thead>
+          <tr>
+            <th>Project ID</th>
+            <th>Project Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+        </thead>
+        <tbody id="projects">
+
+        </tbody>
+
+
       </table>
-
-
-
     </div>
     <div class="col-lg-12 container" style="top: 40px;">
-      <form class="form-inline">
-        <div class="col-md-4 projectButton">
+      <div class="col-lg-4 projectButton">
+        <form class="form-vertical" action="">
           <button class="btn btn-primary btn-lg form-control" data-toggle="collapse" href="#addProjectCollapse">Add Project</button>
-
           <div id="addProjectCollapse" class="panel-collapse collapse panel panel-default">
             <div class="panel-body">
               <div class="col-md-6">
@@ -120,28 +58,30 @@
               </div>
             </div>
             <div class="panel-footer">
-              <button class="btn btn-primary btn-lg form-control" data-toggle="collapse" href="#addProjectCollapse">Submit</button>
+              <button class="btn btn-primary btn-lg form-control">Submit</button>
             </div>
           </div>
-        </div>
-        <div class="col-md-4 projectButton">
+        </form>
+      </div>
+      <div class="col-lg-4 projectButton">
+        <form class="form-vertical">
           <button class="btn btn-primary btn-lg form-control" data-toggle="collapse" href="#editProjectCollapse">Edit Project</button>
-
           <div id="editProjectCollapse" class="panel-collapse collapse">
             <div class="panel-body">Panel Body</div>
             <div class="panel-footer">Panel Footer</div>
           </div>
-        </div>
-        <div class="col-md-4 projectButton">
+        </form>
+      </div>
+      <div class="col-lg-4">
+        <form class="form-vertical">
           <button class="btn btn-primary btn-lg form-control" data-toggle="collapse" href="#deleteProjectCollapse">Delete Project</button>
-
           <div id="deleteProjectCollapse" class="panel-collapse collapse">
             <div class="panel-body">Panel Body</div>
             <div class="panel-footer">Panel Footer</div>
           </div>
-        </div>
-      </form>
-  	</div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <div class="footer">
@@ -155,7 +95,51 @@
   <script src="js/config.js"></script>
   <script src="js/cognito-auth.js"></script>
 
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $.ajax({
+        type: 'GET',
+        url: 'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/productionVersion',
+
+        success: function(data){
+          $('#projects').html('');
+
+          data.Items.forEach(function(projectItem){
+            $('#projects').append(
+              '<tr> <th>'
+                + projectItem.projectID +
+              '</th> <th>'
+                + projectItem.projectName +
+              '</th> </tr>'
+            );
+          })
+        }
+      })
+    })
+
+    /*$('#submitButton').on('click',function(){
+      $.ajax({
+        type: 'POST',
+        url: https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/productionVersion,
+        data: JSON.stringify({"message": $('#msg').val()}),
+        contentType: "application/json",
+
+        success: function(data){
+          location.reload();
+        }
+      });
+
+      return false;
+    })*/
+
+
+
+  </script>
 </body>
+</html>
+
+
+
 	<!--
 	<div id="header" class="container">
 
@@ -233,4 +217,3 @@
 			<button type="submit" class="btn btn-primary form-control">Get Project</button>
 		</form>
 	</div>-->
-</html>
