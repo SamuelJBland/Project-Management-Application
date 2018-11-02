@@ -1,6 +1,6 @@
 'use strict';
 
-const e = React.createElement;
+const createElement = React.createElement;
 
 class ProjectsContainer extends React.Component {
   constructor(props) {
@@ -10,47 +10,17 @@ class ProjectsContainer extends React.Component {
 
   render() {
     if (this.state.liked) {
-      loggedIn();
-      return 'Logged In';
+      //return 'Logged In';
+      return 'PROJECTS';
     }
 
-    return e(
+    return createElement(
       'button',
       { onClick: () => this.setState({ liked: true }) },
-      'Log In'
-
+      'Login'
     );
   }
 }
-
-
-
-class LoginButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { liked: false };
-  }
-
-  render() {
-    if (this.state.liked) {
-
-
-      const projectsDisplayContainer = document.querySelector('#projectsContainer');
-      ReactDOM.render(e(projectsContainer), projectsDisplayContainer);
-      return 'You Logged In.';
-    }
-
-    return e(
-      'button',
-      { onClick: () => this.setState({ liked: true }) },
-      'Log In'
-
-    );
-  }
-}
-
-const loginButtonContainer = document.querySelector('#login_button_container');
-ReactDOM.render(e(LoginButton), loginButtonContainer);
 
 class RegisterButton extends React.Component {
   constructor(props) {
@@ -60,10 +30,10 @@ class RegisterButton extends React.Component {
 
   render() {
     if (this.state.liked) {
-      return 'You registered.';
+      return 'Registered';
     }
 
-    return e(
+    return createElement(
       'button',
       { onClick: () => this.setState({ liked: true }) },
       'Register'
@@ -73,3 +43,35 @@ class RegisterButton extends React.Component {
 
 const registerButtonContainer = document.querySelector('#register_button_container');
 ReactDOM.render(e(RegisterButton), registerButtonContainer);
+
+class LoginButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: false };
+  }
+
+  render() {
+    if (this.state.liked) {
+      return 'test';
+    }
+
+    return e(
+      'button',
+      { onClick: () => this.setState({ liked: true }) },
+      'Log In'
+    );
+  }
+}
+
+const loginButtonContainer = document.querySelector('#login_button_container');
+ReactDOM.render(e(LoginButton), loginButtonContainer);
+
+//const projectsDisplayContainer = document.querySelector('#projectsContainer');
+//ReactDOM.render(e(ProjectsContainer), projectsDisplayContainer);
+
+//function createProjectsContainer() {
+  //const projectsDisplayContainer = document.querySelector('#projectsContainer');
+  //ReactDOM.render(e(ProjectsContainer), projectsDisplayContainer);
+  //document.getElementByID(projectsContainer).style.display = "inline";
+  //return true;
+//}
