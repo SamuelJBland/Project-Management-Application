@@ -9,13 +9,20 @@ body{
   font-family: "Trebuchet MS";
 }
 
+.login-block {
+  margin: 5%;
+}
+
+.popUpButtons {
+    margin-top: 2%;
+}
+
 .collapse{
   margin: 2%;
 }
 
 .projectButton {
   text-align: center;
-
 }
 
 .formItems {
