@@ -15,22 +15,53 @@
     <!--loginPopUp-->
     <div class="modal-dialog">
       <div class="modal-content">
-        <form class="form-signin login-block">
-          <h2 class="form-signin-heading">Login</h2>
-          <div class="form-group">
-            <label for="usernameInput" class="text-uppercase">Username</label>
-            <input type="text" class="form-control" placeholder="Username">
-          </div>
-          <div class="form-group">
-            <label for="passwordInput" class="text-">Password</label>
-            <input type="text" class="form-control" placeholder="Password">
-          </div>
-          <div class="form-group">
-            <div id="login_button_container" class="btn btn-primary popUpButtons" type="submit"></div>
-            <div id="register_button_container" class="btn btn-primary popUpButtons" type="submit"></div>
-          </div>
-          <button class="btn close" data-dismiss="modal">Close</button>
-        </form>
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#loginForm">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#registerForm">Register</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <form id="loginForm" class="container tab-pane active tabContainer">
+            <div class="form-group">
+              <label for="usernameInput">Username</label>
+              <input type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label for="passwordInput">Password</label>
+              <input type="text" class="form-control" placeholder="Password">
+            </div>
+            <div class="form-group"  style="margin-top: 2.5%;">
+              <button id="login_button_container" class="btn btn-primary popUpButtons" type="submit"></button>
+              <button class="btn close" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+
+          <form id="registerForm" class="container tab-pane fade tabContainer" >
+            <div class="form-group">
+              <label for="usernameInput">Username</label>
+              <input type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label for="passwordInput">Password</label>
+              <input type="text" class="form-control" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <label for="statusList">User Type</label>
+              <select class="form-control" name="statusList">
+                <option class="form-control" value="Active">Administrator</option>
+                <option class="form-control" value="Inactive">Project Manager</option>
+                <option class="form-control" value="Inactive">Developer</option>
+              </select>
+            </div>
+            <div class="form-group"  style="margin-top: 2.5%;">
+              <button id="register_button_container" class="btn btn-primary popUpButtons" type="submit"></button>
+              <button class="btn close" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -53,8 +84,15 @@
             <label for="endDateInput">End Date</label>
             <input type="date" class="form-control" placeholder="End Date">
           </div>
-          <div class="form-group" style="margin-top: 7.5%;">
-            <button class="btn btn-primary" type="submit">Create</button>
+          <div class="form-group">
+            <label for="statusList">Status</label>
+            <select class="form-control" name="statusList">
+              <option class="form-control" value="Active">Active</option>
+              <option class="form-control" value="Inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-top: 2.5%;">
+            <button class="btn btn-primary" type="submit">Create Project</button>
             <button class="btn close" data-dismiss="modal">Close</button>
           </div>
         </form>
@@ -70,15 +108,22 @@
           <h2 class="form-signin-heading">Edit Project</h2>
           <div class="form-group">
             <label for="projectNameInput">Project Name</label>
-            <input type="text" class="form-control" placeholder="Project Name">
+            <input type="text" class="form-control" placeholder="Project Name" name="projectNameInput">
           </div>
           <div class="form-group">
             <label for="startDateInput">Start Date</label>
-            <input type="date" class="form-control" placeholder="Start Date">
+            <input type="date" class="form-control" placeholder="Start Date" name="startDateInput">
           </div>
           <div class="form-group">
             <label for="endDateInput">End Date</label>
-            <input type="date" class="form-control" placeholder="End Date">
+            <input type="date" class="form-control" placeholder="End Date" name="endDateInput">
+          </div>
+          <div class="form-group">
+            <label for="statusList">Status</label>
+            <select class="form-control" name="statusList">
+              <option class="form-control" value="Active">Active</option>
+              <option class="form-control" value="Inactive">Inactive</option>
+            </select>
           </div>
           <div class="form-group" style="margin-top: 7.5%;">
             <button class="btn btn-primary" type="submit">Save Changes</button>
@@ -101,8 +146,6 @@
   <div class="container col-lg-12">
     <div class="row">
       <div id="projects" class="col-lg-12"></div>
-
-
         <div class="col-md-6 row" style="margin: 1%;">
           <div class="card">
             <button class="btn btn-info" data-toggle="modal" data-target="#createProjectPopUp">
@@ -116,8 +159,6 @@
             </button>
           </div>
         </div>
-
-
     </div>
   </div>
 
@@ -164,59 +205,3 @@
 
 </body>
 </html>
-
-
-
-
-<!--
-    <div class="col-lg-12 container" style="top: 40px;">
-      <div class="col-lg-4 projectButton">
-        <form class="form-inline" action="">
-          <button class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#addProjectCollapse">Add Project</button>
-          <div id="addProjectCollapse" class="panel-collapse collapse panel panel-default">
-            <div class="panel-body">
-              <div class="col-md-6">
-                <label for="projectName">Project Name</label>
-              </div>
-              <div class="col-md-6">
-                <input type="text" class="form-control formItems" id="projectName">
-              </div>
-              <div class="col-md-6">
-                <label for="startDate">Start Date</label>
-              </div>
-              <div class="col-md-6">
-                <input type="date" class="form-control formItems" id="startDate">
-              </div>
-              <div class="col-md-6">
-                <label for="endDate">End Date</label>
-              </div>
-              <div class="col-md-6">
-                <input type="date" class="form-control formItems" id="endDate">
-              </div>
-            </div>
-            <div class="panel-footer">
-              <button class="btn btn-primary btn-lg form-control">Submit</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col-lg-4 projectButton">
-        <form class="form-inline">
-          <button class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#editProjectCollapse">Edit Project</button>
-          <div id="editProjectCollapse" class="panel-collapse collapse">
-            <div class="panel-body">Panel Body</div>
-            <div class="panel-footer">Panel Footer</div>
-          </div>
-        </form>
-      </div>
-      <div class="col-lg-4">
-        <form class="form-inline">
-          <button class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#deleteProjectCollapse">Delete Project</button>
-          <div id="deleteProjectCollapse" class="panel-collapse collapse">
-            <div class="panel-body">Panel Body</div>
-            <div class="panel-footer">Panel Footer</div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>-->

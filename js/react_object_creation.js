@@ -53,7 +53,7 @@ ReactDOM.render(e(LoginButton), loginButtonContainer);
 function loadProjects() {
   $.ajax({
     type: 'GET',
-    url: 'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/productionVersion',
+    url: 'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/developmentStage/getProjects',
 
     success: function(data){
       $('#projects').html('');
@@ -68,7 +68,7 @@ function loadProjects() {
                       projectItem.projectName +
                     '</div>' +
                     '<div class="card-text">' +
-                      projectItem.projectName +
+                      'Status: ' + projectItem.status +
                     '</div>' +
                   '</div>' +
                   '<div class="col-md-2">' +
