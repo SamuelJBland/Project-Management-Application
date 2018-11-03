@@ -22,7 +22,7 @@
             <input type="text" class="form-control" placeholder="Username">
           </div>
           <div class="form-group">
-            <label for="passwordInput" class="text-uppercase">Password</label>
+            <label for="passwordInput" class="text-">Password</label>
             <input type="text" class="form-control" placeholder="Password">
           </div>
           <div class="form-group">
@@ -35,15 +35,138 @@
     </div>
   </div>
 
+  <div id="createProjectPopUp" class="modal fade" role="dialog">
+    <!--Project Edit PopUp-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form class="form-signin login-block">
+          <h2 class="form-signin-heading">Create Project</h2>
+          <div class="form-group">
+            <label for="projectNameInput">Project Name</label>
+            <input type="text" class="form-control" placeholder="Project Name">
+          </div>
+          <div class="form-group">
+            <label for="startDateInput">Start Date</label>
+            <input type="date" class="form-control" placeholder="Start Date">
+          </div>
+          <div class="form-group">
+            <label for="endDateInput">End Date</label>
+            <input type="date" class="form-control" placeholder="End Date">
+          </div>
+          <div class="form-group" style="margin-top: 7.5%;">
+            <button class="btn btn-primary" type="submit">Create</button>
+            <button class="btn close" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
-  <div id="title" class="col-lg-12">
-    <h1>Project Management Application</h1>
+  <div id="editProjectPopUp" class="modal fade" role="dialog">
+    <!--Project Edit PopUp-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form class="form-signin login-block">
+          <h2 class="form-signin-heading">Edit Project</h2>
+          <div class="form-group">
+            <label for="projectNameInput">Project Name</label>
+            <input type="text" class="form-control" placeholder="Project Name">
+          </div>
+          <div class="form-group">
+            <label for="startDateInput">Start Date</label>
+            <input type="date" class="form-control" placeholder="Start Date">
+          </div>
+          <div class="form-group">
+            <label for="endDateInput">End Date</label>
+            <input type="date" class="form-control" placeholder="End Date">
+          </div>
+          <div class="form-group" style="margin-top: 7.5%;">
+            <button class="btn btn-primary" type="submit">Save Changes</button>
+            <button class="btn close" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="title" class="col-lg-12 row">
+    <div class="col-md-10">
+      <h1>Project Management Application</h1>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-lg btn-info" data-toggle="modal" data-target="#loginPopUp">Login/ Register</button>
+    </div>
   </div>
 
   <div class="container col-lg-12">
     <div class="row">
       <div id="projects" class="col-lg-12"></div>
+
+
+        <div class="col-md-6 row" style="margin: 1%;">
+          <div class="card">
+            <button class="btn btn-info" data-toggle="modal" data-target="#createProjectPopUp">
+              <div class="card-body row">
+                <div class="col-md-12">
+                  <div class="card-text">
+                    Create Project <i class="fas fa-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+
     </div>
+  </div>
+
+  <div class="footer"></div>
+
+  <script src="js/vendor/jquery-3.1.0.js"></script>
+  <script src="js/vendor/bootstrap.min.js"></script>
+  <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+  <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/cognito-auth.js"></script>
+
+  <script type="text/javascript">
+/*
+    $(window).on('load',function(){
+      $('#loginPopUp').modal('show');
+    });
+
+    $(document).ready(function(){
+
+    })
+*/
+    /*$('#submitButton').on('click',function(){
+      $.ajax({
+        type: 'POST',
+        url: https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/productionVersion,
+        data: JSON.stringify({"message": $('#msg').val()}),
+        contentType: "application/json",
+
+        success: function(data){
+          location.reload();
+        }
+      });
+
+      return false;
+    })*/
+  </script>
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Load React components -->
+  <script src="js/react_object_creation.js"></script>
+
+</body>
+</html>
+
+
+
 
 <!--
     <div class="col-lg-12 container" style="top: 40px;">
@@ -97,47 +220,3 @@
       </div>
     </div>
   </div>-->
-
-  <div class="footer"></div>
-
-  <script src="js/vendor/jquery-3.1.0.js"></script>
-  <script src="js/vendor/bootstrap.min.js"></script>
-  <script src="js/vendor/aws-cognito-sdk.min.js"></script>
-  <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/cognito-auth.js"></script>
-
-  <script type="text/javascript">
-  /*
-    $(window).on('load',function(){
-      $('#loginPopUp').modal('show');
-    });
-*/
-    //$(document).ready(function(){
-
-    //})
-
-    /*$('#submitButton').on('click',function(){
-      $.ajax({
-        type: 'POST',
-        url: https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/productionVersion,
-        data: JSON.stringify({"message": $('#msg').val()}),
-        contentType: "application/json",
-
-        success: function(data){
-          location.reload();
-        }
-      });
-
-      return false;
-    })*/
-  </script>
-
-  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-
-  <!-- Load React components -->
-  <script src="js/react_object_creation.js"></script>
-
-</body>
-</html>

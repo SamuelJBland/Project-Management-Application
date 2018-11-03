@@ -72,13 +72,12 @@ function loadProjects() {
                     '</div>' +
                   '</div>' +
                   '<div class="col-md-2">' +
-                    '<button class="btn col-sm-12 row" type="submit" formaction="login();" style="margin: 2%;"> <i class="fas fa-edit"></i></button>' +
-                    '<button class="btn col-sm-12 row" type="submit" formaction="login();" style="margin: 2%;"> <i class="fas fa-trash-alt"></i></button>' +
+                    '<button class="btn btn-info col-sm-12 row" type="submit" data-toggle="modal" data-target="#editProjectPopUp" style="margin: 2%;"><i class="fas fa-edit"></i></button>' +
+                    '<button class="btn btn-info col-sm-12 row" type="submit" style="margin: 2%;"> <i class="fas fa-trash-alt"></i></button>' +
                   '</div>' +
                 '</div>' +
               '</div>' +
             '</div>'
-
           )
         });
       }
@@ -93,7 +92,7 @@ function login() {
     success: function(data){
       $('#projects').html('');
 
-      alert("Logged In");
+      //alert("Logged In");
     }
   })
 }
