@@ -1,6 +1,7 @@
 'use strict';
 
 const e = React.createElement;
+loadProjects();
 
 class RegisterButton extends React.Component {
   constructor(props) {
@@ -49,27 +50,6 @@ class LoginButton extends React.Component {
 const loginButtonContainer = document.querySelector('#login_button_container');
 ReactDOM.render(e(LoginButton), loginButtonContainer);
 
-function login() {
-  $.ajax({
-    type: 'GET',
-    url: 'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/productionVersion',
-
-    success: function(data){
-      $('#projects').html('');
-
-      data.Items.forEach(function(projectItem){
-        $('#projects').append(
-          '<tr> <th>'
-            + projectItem.projectID +
-          '</th> <th>'
-            + projectItem.projectName +
-          '</th> </tr>'
-        );
-      })
-    }
-  })
-}
-
 function loadProjects() {
   $.ajax({
     type: 'GET',
@@ -79,14 +59,43 @@ function loadProjects() {
       $('#projects').html('');
 
       data.Items.forEach(function(projectItem){
-        $('#projects').append(
-          '<tr> <th>'
-            + projectItem.projectID +
-          '</th> <th>'
-            + projectItem.projectName +
-          '</th> </tr>'
-        );
-      })
+        //$('#projects').append(
+          //'<div class="card"> <tr> <th>'
+          //  + projectItem.projectID +
+          //'</th> <th>'
+          //  + projectItem.projectName +
+          //'</th> </tr></div>'
+
+
+
+          $('#projects').append(
+            '<div class="card">' +
+              '<div class="card-body">' +
+                '<div class="card-title">' +
+                  projectItem.projectName +
+                '</div>' +
+                '<div class="card-text">' +
+                  projectItem.projectName +
+                '</div>' +
+                '<button class="btn" type="submit" formaction="login()"> <i class="fas fa-edit"></i></button>' +
+                '<button class="btn" type="submit" formaction="login()"> <i class="fas fa-trash-alt"></i></button>' +
+              '</div>' +
+            '</div>'
+          )
+        });
+      }
+    })
+}
+
+function login() {
+  $.ajax({
+    type: 'POST',
+    url: 'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/productionVersion',
+
+    success: function(data){
+      $('#projects').html('');
+
+      alert("Logged In");
     }
   })
 }

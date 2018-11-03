@@ -3,14 +3,15 @@
   <title id="title">Project Management Application</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="images/logo.ico">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-  <div id="loginPopUp" class="modal fade container" role="dialog">
+  <div id="loginPopUp" class="modal fade" role="dialog">
     <!--loginPopUp-->
     <div class="modal-dialog">
       <div class="modal-content">
@@ -25,8 +26,8 @@
             <input type="text" class="form-control" placeholder="Password">
           </div>
           <div class="form-group">
-            <div id="login_button_container" class="btn btn-primary btn-md popUpButtons" type="submit"></div>
-            <div id="register_button_container" class="btn btn-primary btn-md popUpButtons" type="submit"></div>
+            <div id="login_button_container" class="btn btn-primary popUpButtons" type="submit"></div>
+            <div id="register_button_container" class="btn btn-primary popUpButtons" type="submit"></div>
           </div>
           <button class="btn close" data-dismiss="modal">Close</button>
         </form>
@@ -34,12 +35,15 @@
     </div>
   </div>
 
-  <div id="projectsContainer" class="container col-lg-12">
-    <div class="container col-lg-12" id="title">
-      <h1>Project Management Application</h1>
-    </div>
-    <div class="container col-lg-12" id="main body">
-      <table class="col-lg-12" style="width:100%">
+
+  <div id="title" class="col-lg-12">
+    <h1>Project Management Application</h1>
+  </div>
+
+  <div class="container col-lg-12"style="border: solid red;">
+    <!--
+    <div id="projectsContainer" class="row col-lg-12 container">
+      <table class="col-lg-12">
         <thead>
           <tr>
             <th>Project ID</th>
@@ -48,14 +52,24 @@
             <th>End Date</th>
           </tr>
         </thead>
-        <tbody id="projects"></tbody>
+        <tbody id="projects">
+
+        </tbody>
       </table>
+    -->
+
+    <div class="row" style="border: solid red;">
+      <div id="projects" class="col-lg-12">
+
+
+      </div>
     </div>
 
+<!--
     <div class="col-lg-12 container" style="top: 40px;">
       <div class="col-lg-4 projectButton">
         <form class="form-inline" action="">
-          <button class="btn btn-primary btn-lg form-control" data-toggle="collapse" href="#addProjectCollapse">Add Project</button>
+          <button class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#addProjectCollapse">Add Project</button>
           <div id="addProjectCollapse" class="panel-collapse collapse panel panel-default">
             <div class="panel-body">
               <div class="col-md-6">
@@ -85,7 +99,7 @@
       </div>
       <div class="col-lg-4 projectButton">
         <form class="form-inline">
-          <button class="btn btn-primary btn-lg form-control" data-toggle="collapse" href="#editProjectCollapse">Edit Project</button>
+          <button class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#editProjectCollapse">Edit Project</button>
           <div id="editProjectCollapse" class="panel-collapse collapse">
             <div class="panel-body">Panel Body</div>
             <div class="panel-footer">Panel Footer</div>
@@ -94,7 +108,7 @@
       </div>
       <div class="col-lg-4">
         <form class="form-inline">
-          <button class="btn btn-primary btn-lg form-control" data-toggle="collapse" href="#deleteProjectCollapse">Delete Project</button>
+          <button class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#deleteProjectCollapse">Delete Project</button>
           <div id="deleteProjectCollapse" class="panel-collapse collapse">
             <div class="panel-body">Panel Body</div>
             <div class="panel-footer">Panel Footer</div>
@@ -103,7 +117,7 @@
       </div>
     </div>
   </div>
-
+-->
   <div class="footer"></div>
 
   <script src="js/vendor/jquery-3.1.0.js"></script>
@@ -114,10 +128,11 @@
   <script src="js/cognito-auth.js"></script>
 
   <script type="text/javascript">
+  /*
     $(window).on('load',function(){
       $('#loginPopUp').modal('show');
     });
-    
+*/
     //$(document).ready(function(){
 
     //})
@@ -142,7 +157,7 @@
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
   <!-- Load React components -->
-  <script src="js/react_objects.js"></script>
+  <script src="js/react_object_creation.js"></script>
 
 </body>
 </html>

@@ -1,11 +1,13 @@
 body{
   background-color: #dddbfd;
   font-family: "Trebuchet MS";
+
 }
 
 #title {
-  margin: 0.5%;
-  border-style: outset;
+  background-color: #E8E8E8;
+  color: #404040;
+  padding: 2%;
   font-family: "Trebuchet MS";
 }
 
@@ -15,6 +17,11 @@ body{
 
 .popUpButtons {
     margin-top: 2%;
+}
+
+#projectsContainer {
+  margin: 1%;
+
 }
 
 .collapse{
@@ -27,4 +34,5 @@ body{
 
 .formItems {
   margin-top: 0.5%;
+  border: solid red;
 }
