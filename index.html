@@ -11,8 +11,8 @@
 </head>
 
 <body>
-  <div id="loginPopUp" class="modal fade" role="dialog">
-    <!--loginPopUp-->
+  <div id="loginRegisterPopUp" class="modal fade" role="dialog">
+    <!--loginRegisterPopUp-->
     <div class="modal-dialog">
       <div class="modal-content">
         <ul class="nav nav-tabs" role="tablist">
@@ -20,47 +20,75 @@
             <a class="nav-link active" data-toggle="tab" href="#loginForm"><h5>Login</h5></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#registerForm"><h5>Register</h5></a>
+            <a class="nav-link" data-toggle="tab" href="#registrationForm"><h5>Register</h5></a>
           </li>
         </ul>
+
         <div class="tab-content">
           <form id="loginForm" class="container tab-pane active tabContainer">
             <div class="form-group">
-              <label for="usernameInput">Username</label>
-              <input type="text" class="form-control" placeholder="Username">
+              <label for="emailInputLogin">Email</label>
+              <input id="emailInputLogin" class="form-control" type="email" placeholder="Email" pattern=".*" required>
             </div>
             <div class="form-group">
-              <label for="passwordInput">Password</label>
-              <input type="text" class="form-control" placeholder="Password">
+              <label for="passwordInputLogin">Password</label>
+              <input id="passwordInputLogin" class="form-control" type="text" placeholder="Password" required>
             </div>
             <div class="form-group"  style="margin-top: 2.5%;">
-              <button id="login_button_container" class="btn btn-primary popUpButtons" type="submit"></button>
+              <input id="login_button_container" class="btn btn-primary popUpButtons" type="submit" value="Log In">
               <button class="btn close" data-dismiss="modal">Close</button>
             </div>
           </form>
-          <form id="registerForm" class="container tab-pane fade tabContainer" >
+          <form id="registrationForm" class="container tab-pane fade tabContainer">
             <div class="form-group">
-              <label for="usernameInput">Username</label>
-              <input type="text" class="form-control" placeholder="Username">
+              <label for="emailInputRegister">Email</label>
+              <input id="emailInputRegister" class="form-control" type="email" placeholder="Email" pattern=".*" required>
             </div>
             <div class="form-group">
-              <label for="passwordInput">Password</label>
-              <input type="text" class="form-control" placeholder="Password">
+              <label for="passwordInputRegister">Password</label>
+              <input id="passwordInputRegister" class="form-control" type="text"  placeholder="Password" required>
+            </div>
+            <div class="form-group">
+              <label for="passwordConfirmInputRegister">Password</label>
+              <input id="passwordConfirmInputRegister" class="form-control" type="text" placeholder="Confirm Password" required>
             </div>
             <div class="form-group">
               <label for="statusList">User Type</label>
-              <select class="form-control" name="statusList">
+              <select class="form-control" name="statusList" required>
                 <option class="form-control" value="Active">Administrator</option>
                 <!--<option class="form-control" value="Inactive">Project Manager</option>
                 <option class="form-control" value="Inactive">Developer</option>-->
               </select>
             </div>
             <div class="form-group"  style="margin-top: 2.5%;">
-              <button id="register_button_container" class="btn btn-primary popUpButtons" type="submit"></button>
+              <input id="register_button_container" class="btn btn-primary popUpButtons" type="submit" value="Register">
               <button class="btn close" data-dismiss="modal">Close</button>
             </div>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="verifyUserPopUp" class="modal fade" role="dialog">
+    <!--Project Edit PopUp-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="verifyform" class="form-signin login-block" enctype="application/json">
+          <h2 class="form-signin-heading">Verify User</h2>
+          <div class="form-group">
+            <label for="projectNameInput">Email</label>
+            <input type="text" class="form-control" placeholder="Project Name" name="username">
+          </div>
+          <div class="form-group">
+            <label for="startDateInput">Verification Code</label>
+            <input type="date" class="form-control" placeholder="Start Date" name="startDate">
+          </div>
+          <div class="form-group" style="margin-top: 2.5%;">
+            <button class="btn btn-primary" type="submit">Create Project</button>
+            <button class="btn close" data-dismiss="modal">Close</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -133,12 +161,76 @@
     </div>
   </div>
 
+
+
+
+
+
+  <!--Register-->
+
+
+
+
+
+
+
+  <div class="info panel panel-default">
+          <div class="panel-heading">
+              <button id="request" class="btn btn-primary" disabled="disabled">Set pickup</button>
+              <div class="dropdown pull-right">
+                  <button id="accountLink" class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Account <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="accountLink">
+                      <li><a id="signOut" href="#">Sign out</a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <div id="noApiMessage" class="configMessage" style="display: none;">
+          <div class="backdrop"></div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h3 class="panel-title">Successfully Authenticated!</h3>
+              </div>
+              <div class="panel-body">
+                  <p>This page is not functional yet because there is no API invoke URL configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 3.</p>
+                  <p>In the meantime, if you'd like to test the Amazon Cognito user pool authorizer for your API, use the auth token below:</p>
+                  <textarea class="authToken"></textarea>
+              </div>
+          </div>
+      </div>
+
+
+
+      <div id="authTokenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="authToken">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Your Auth Token</h4>
+                  </div>
+                  <div class="modal-body">
+                      <textarea class="authToken"></textarea>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+
+
   <div id="title" class="col-lg-12 row">
     <div class="col-md-10">
       <h1>Project Management Application</h1>
     </div>
     <div class="col-md-2">
-      <button class="btn btn-lg btn-info" data-toggle="modal" data-target="#loginPopUp">Login/ Register</button>
+      <button class="btn btn-lg btn-info" data-toggle="modal" data-target="#loginRegisterPopUp">Login/ Register</button>
     </div>
   </div>
 
@@ -162,13 +254,6 @@
   </div>
 
   <div class="footer"></div>
-
-  <script src="js/vendor/jquery-3.1.0.js"></script>
-  <script src="js/vendor/bootstrap.min.js"></script>
-  <script src="js/vendor/aws-cognito-sdk.min.js"></script>
-  <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/cognito-auth.js"></script>
 
   <script type="text/javascript">
 /*
@@ -196,11 +281,17 @@
     })*/
   </script>
 
+  <script src="js/vendor/jquery-3.1.0.js"></script>
+  <script src="js/vendor/bootstrap.min.js"></script>
+  <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+  <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/cognito-auth.js"></script>
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
-  <!-- Load React components -->
-  <script src="js/react_object_creation.js"></script>
+
+  <script src="js/main.js"></script>
 
 </body>
 </html>

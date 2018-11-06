@@ -19,18 +19,17 @@ export function main(event, context, callback) {
  Item: {
  userId: event.requestContext.identity.cognitoIdentityId,
  projectID: uuid.v1(),
- projectName: data.content,
- projectStatus: data.content,
+ projectName: data.content
  }
  };
 
  dynamoDb.put(params, (error, data) => {
- // Set response headers to enable CORS (Cross-Origin Resource
- // Sharing)
- const headers = {
- "Access-Control-Allow-Origin": "*"
-,
- "Access-Control-Allow-Credentials": true
+   // Set response headers to enable CORS (Cross-Origin Resource
+   // Sharing)
+   const headers = {
+     "Access-Control-Allow-Origin": "*"
+     ,
+     "Access-Control-Allow-Credentials": true
  };
  // Return status code 500 on error
  if (error) {
