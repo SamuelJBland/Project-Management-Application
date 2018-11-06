@@ -87,7 +87,7 @@ function loadProjects() {
 function login() {
   $.ajax({
     type: 'POST',
-    url: 'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/productionVersion',
+    url: 'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/productionVersion/getProjects',
 
     success: function(data){
       $('#projects').html('');
