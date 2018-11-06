@@ -1,23 +1,14 @@
-/*global WildRydes _config AmazonCognitoIdentity AWSCognito*/
+/*global _config AmazonCognitoIdentity AWSCognito*/
 
 var ProjectManagementApp = window.projectManagementApp || {};
 
 (function scopeWrapper($) {
-    var signinUrl = '/signin.html';
-
     var poolData = {
         UserPoolId: _config.cognito.userPoolId,
         ClientId: _config.cognito.userPoolClientId
     };
 
     var userPool;
-
-    if (!(_config.cognito.userPoolId &&
-          _config.cognito.userPoolClientId &&
-          _config.cognito.region)) {
-        $('#noCognitoMessage').show();
-        return;
-    }
 
     userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
@@ -110,19 +101,21 @@ var ProjectManagementApp = window.projectManagementApp || {};
     });
 
     function handleLogin(event) {
-        var email = $('#emailInputLogin').val();
+        const email = $('#emailInputLogin').val();
         var password = $('#passwordInputLogin').val();
         event.preventDefault();
-        login(email, password,
-            function loginSuccess() {
-                console.log('Successfully Logged In');
-                alert("Logged In");
-                window.location.href = "www.google.co.uk";
-            },
+        login(email, password, loginSuccess(email),
             function loginError(err) {
                 alert(err);
             }
         );
+    }
+
+    function loginSuccess(emailRef) {
+        alert("Logged In");
+        $('#title').append(
+          '<h2>Logged In as SADASDASD' + emailRef + '</h2>'
+        )
     }
 
     function handleRegister(event) {
@@ -133,11 +126,12 @@ var ProjectManagementApp = window.projectManagementApp || {};
         var onSuccess = function registerSuccess(result) {
             var cognitoUser = result.user;
             //console.log('user name is ' + cognitoUser.getUsername());
-            alert("Registration Successful");
+
             var confirmation = ('Registration successful.');
             if (confirmation) {
-                //window.location.href = 'verify.html';
-                //load verificaton
+              alert("Registration Successful");
+              $('#loginRegisterPopUp').modal('hide');
+              $('#verifyUserPopUp').modal('show');
             }
         };
         var onFailure = function registerFailure(err) {
@@ -158,8 +152,8 @@ var ProjectManagementApp = window.projectManagementApp || {};
         event.preventDefault();
         verify(email, code,
             function verifySuccess(result) {
-                console.log('call result: ' + result);
-                console.log('Successfully verified');
+                $('#verifyUserPopUp').modal('close');
+                $('#loginRegisterPopUp').modal('show');
                 alert('Verification successful.');
             },
             function verifyError(err) {

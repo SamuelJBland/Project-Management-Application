@@ -3,75 +3,6 @@
 const e = React.createElement;
 loadProjects();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class RegisterButton extends React.Component {
   constructor(props) {
     super(props);
@@ -92,7 +23,7 @@ class RegisterButton extends React.Component {
 }
 
 const registerButtonContainer = document.querySelector('#register_button_container');
-ReactDOM.render(e(RegisterButton), registerButtonContainer);
+ReactDOM.render(e(RegisterButton), registerButton);
 
 class LoginButton extends React.Component {
   constructor(props) {
@@ -117,7 +48,7 @@ class LoginButton extends React.Component {
 }
 
 const loginButtonContainer = document.querySelector('#login_button_container');
-ReactDOM.render(e(LoginButton), loginButtonContainer);
+ReactDOM.render(e(LoginButton), loginButton);
 
 function loadProjects() {
   $.ajax({

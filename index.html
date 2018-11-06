@@ -35,7 +35,7 @@
               <input id="passwordInputLogin" class="form-control" type="text" placeholder="Password" required>
             </div>
             <div class="form-group"  style="margin-top: 2.5%;">
-              <input id="login_button_container" class="btn btn-primary popUpButtons" type="submit" value="Log In">
+              <input id="loginButton" class="btn btn-primary popUpButtons" type="submit" value="Log In">
               <button class="btn close" data-dismiss="modal">Close</button>
             </div>
           </form>
@@ -61,7 +61,7 @@
               </select>
             </div>
             <div class="form-group"  style="margin-top: 2.5%;">
-              <input id="register_button_container" class="btn btn-primary popUpButtons" type="submit" value="Register">
+              <input id="registerbutton" class="btn btn-primary popUpButtons" type="submit" value="Register">
               <button class="btn close" data-dismiss="modal">Close</button>
             </div>
           </form>
@@ -75,30 +75,47 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <form id="verifyform" class="form-signin login-block" enctype="application/json">
-          <h2 class="form-signin-heading">Verify User</h2>
+          <h2 class="modal-heading">Verify User</h2>
           <div class="form-group">
-            <label for="projectNameInput">Email</label>
-            <input type="text" class="form-control" placeholder="Project Name" name="username">
+            <label for="emailInputVerify">Email</label>
+            <input id="emailInputVerify" class="form-control" type="text" placeholder="Email" name="email">
           </div>
           <div class="form-group">
-            <label for="startDateInput">Verification Code</label>
-            <input type="date" class="form-control" placeholder="Start Date" name="startDate">
+            <label for="codeInputVerify">Verification Code</label>
+            <input id="codeInputVerify" class="form-control" type="text" placeholder="Verification Code" patter=".*" name="startDate">
           </div>
           <div class="form-group" style="margin-top: 2.5%;">
-            <button class="btn btn-primary" type="submit">Create Project</button>
+            <button class="btn btn-primary" type="submit">Verify</button>
             <button class="btn close" data-dismiss="modal">Close</button>
           </div>
         </form>
       </div>
     </div>
   </div>
+<!--
+  <div id="authTokenModal" class="modal fade" role="dialog">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h4 class="modal-title" id="myModalLabel">Your Auth Token</h4>
+               </div>
+               <div class="modal-body">
+                   <textarea class="authToken"></textarea>
+               </div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+           </div>
+       </div>
+   </div>
+-->
 
   <div id="createProjectPopUp" class="modal fade" role="dialog">
     <!--Project Edit PopUp-->
     <div class="modal-dialog">
       <div class="modal-content">
         <form class="form-signin login-block" enctype="application/json">
-          <h2 class="form-signin-heading">Create Project</h2>
+          <h2 class="modal-heading">Create Project</h2>
           <div class="form-group">
             <label for="projectNameInput">Project Name</label>
             <input type="text" class="form-control" placeholder="Project Name" name="username">
@@ -132,7 +149,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <form class="form-signin login-block">
-          <h2 class="form-signin-heading">Edit Project</h2>
+          <h2 class="modal-heading">Edit Project</h2>
           <div class="form-group">
             <label for="projectNameInput">Project Name</label>
             <input type="text" class="form-control" placeholder="Project Name" name="projectNameInput">
@@ -161,19 +178,7 @@
     </div>
   </div>
 
-
-
-
-
-
-  <!--Register-->
-
-
-
-
-
-
-
+  <!--Register
   <div class="info panel panel-default">
           <div class="panel-heading">
               <button id="request" class="btn btn-primary" disabled="disabled">Set pickup</button>
@@ -203,7 +208,6 @@
       </div>
 
 
-
       <div id="authTokenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="authToken">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -220,7 +224,7 @@
               </div>
           </div>
       </div>
-
+-->
 
 
 
@@ -237,19 +241,19 @@
   <div class="container col-lg-12">
     <div class="row">
       <div id="projects" class="col-lg-12"></div>
-        <div class="col-md-6 row" style="margin: 1%;">
-          <div class="card">
-            <button class="btn btn-info" data-toggle="modal" data-target="#createProjectPopUp">
-              <div class="card-body row">
-                <div class="col-md-12">
-                  <div class="card-text">
-                    Create Project <i class="fas fa-plus-circle"></i>
-                  </div>
+      <div class="col-md-6 row" style="margin: 1%;">
+        <div class="card">
+          <button class="btn btn-info" data-toggle="modal" data-target="#createProjectPopUp">
+            <div class="card-body row">
+              <div class="col-md-12">
+                <div class="card-text">
+                  Create Project <i class="fas fa-plus-circle"></i>
                 </div>
               </div>
-            </button>
-          </div>
+            </div>
+          </button>
         </div>
+      </div>
     </div>
   </div>
 
