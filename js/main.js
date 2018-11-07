@@ -1,31 +1,9 @@
 'use strict';
 
 const e = React.createElement;
-loadProjects();
+//loadProjects();
 
-class RegisterButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { liked: false };
-  }
-
-  render() {
-    if (this.state.liked) {
-      return 'Registered';
-    }
-
-    return e(
-      'btn',
-      { onClick: () => this.setState({ liked: true }) },
-      'Register'
-    );
-  }
-}
-
-const registerButtonContainer = document.querySelector('#register_button_container');
-ReactDOM.render(e(RegisterButton), registerButton);
-
-class LoginButton extends React.Component {
+class LoginRegisterButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = { liked: false };
@@ -35,20 +13,20 @@ class LoginButton extends React.Component {
     if (this.state.liked) {
       //if login = true
       login();
-      loadProjects();
-      return 'Logged In';
+      //loadProjects();
+      return 'Log Out';
     }
 
     return e(
       'btn',
       { onClick: () => this.setState({ liked: true }) },
-      'Log In'
+      'Login/Register'
     );
   }
 }
 
-const loginButtonContainer = document.querySelector('#login_button_container');
-ReactDOM.render(e(LoginButton), loginButton);
+const loginButtonContainer = document.querySelector('#loginRegisterButtonContainer');
+ReactDOM.render(e(LoginRegisterButton), loginButton);
 
 function loadProjects() {
   $.ajax({
@@ -79,9 +57,9 @@ function loadProjects() {
               '</div>' +
             '</div>'
           )
-        });
-      }
-    })
+      });
+    }
+  })
 }
 
 function login() {

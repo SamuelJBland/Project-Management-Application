@@ -68,7 +68,16 @@ var ProjectManagementApp = window.projectManagementApp || {};
 
         var cognitoUser = createCognitoUser(email);
         cognitoUser.authenticateUser(authenticationDetails, {
-            onSuccess: onSuccess,
+            //onSuccess: onSuccess,
+            onSuccess: function(session) {
+              const tokens = {
+                accessToken: session.getAccessToken().getJwtToken(),
+                idToken: session.getIDToken().getJwtToken(),
+                refreshToken: session.getRefreshToken.getJwtToken()
+              }
+              cognitoUser['tokens'] = tokens;
+              resolve(cognitoUser);
+            },
             onFailure: onFailure
         });
     }
