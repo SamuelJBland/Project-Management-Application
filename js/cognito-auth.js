@@ -130,15 +130,13 @@ var ProjectManagementApp = window.projectManagementApp || {};
       //var cognitoUser = userPool.getCurrentUser();
       //var currentSession = cognitoUser.getSession();
       //alert("Logged in as" + currentSession.fetchCurrentAuthToke());
-      const tokens = {
-        accessToken: session.getAccessToken().getJwtToken(),
-        idToken: session.getIDToken().getJwtToken(),
-        refreshToken: session.getRefreshToken.getJwtToken()
-      }
+      //const tokens = {
+      //  accessToken: session.getAccessToken().getJwtToken(),
+      //  idToken: session.getIDToken().getJwtToken(),
+      //  refreshToken: session.getRefreshToken.getJwtToken()
+      //}
       //cognitoUser['tokens'] = tokens;
       //resolve(cognitoUser);
-
-
 
       $.ajax({
         type: 'GET',

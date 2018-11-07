@@ -88,7 +88,7 @@
           </div>
           <div class="form-group">
             <label for="codeInputVerify">Verification Code</label>
-            <input id="codeInputVerify" class="form-control" type="text" placeholder="Verification Code" patter=".*" name="startDate">
+            <input id="codeInputVerify" class="form-control" type="text" placeholder="Verification Code" patter=".*" name="verificationCode">
           </div>
           <div class="form-group" style="margin-top: 2.5%;">
             <button class="btn btn-primary" type="submit">Verify</button>
@@ -237,7 +237,7 @@
       <h1>Project Management Application</h1>
     </div>
     <div class="col-md-2">
-      <button class="btn btn-lg btn-info" data-toggle="modal" data-target="#loginRegisterPopUp">Login/ Register</button>
+      <button id="loginRegisterButton" class="btn btn-lg btn-info" data-toggle="modal" data-target="#loginRegisterPopUp">Login/ Register</button>
     </div>
   </div>
 
@@ -293,12 +293,12 @@
   <script src="js/vendor/aws-cognito-sdk.min.js"></script>
   <script src="js/vendor/amazon-cognito-identity.min.js"></script>
   <script src="js/config.js"></script>
-  <script src="js/cognito-authTest.js"></script>
+  <script src="js/cognito-auth.js"></script>
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
 
-  <script src="js/main.js"></script>
+  <script src="js/reactObjectCreation.js"></script>
 
 </body>
 </html>
