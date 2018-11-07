@@ -38,9 +38,44 @@ var ProjectManagementApp = window.projectManagementApp || {};
         }
     });
 
+
+    $(function onDocReady() {
+        $('#loginForm').submit(handleLogin);
+        $('#registrationForm').submit(handleRegister);
+        $('#verifyForm').submit(handleVerify);
+    });
+
     /*
      * Cognito User Pool functions
      */
+
+     function handleRegister(event) {
+         var email = $('#emailInputRegister').val();
+         var password = $('#passwordInputRegister').val();
+         var passwordConfirm = $('#passwordConfirmInputRegister').val();
+
+         var onSuccess = function registerSuccess(result) {
+             var cognitoUser = result.user;
+             //console.log('user name is ' + cognitoUser.getUsername());
+
+             var confirmation = ('Registration successful.');
+             if (confirmation) {
+               alert("Registration Successful");
+               $('#loginRegisterPopUp').modal('hide');
+               $('#verifyUserPopUp').modal('show');
+             }
+         };
+         var onFailure = function registerFailure(err) {
+             alert(err);
+         };
+         event.preventDefault();
+
+         if (password === passwordConfirm) {
+             register(email, password, onSuccess, onFailure);
+         } else {
+             alert('Passwords do not match');
+         }
+     }
 
     function register(email, password, onSuccess, onFailure) {
         var dataEmail = {
@@ -60,54 +95,12 @@ var ProjectManagementApp = window.projectManagementApp || {};
         );
     }
 
-    function login(email, password, onSuccess, onFailure) {
-        var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
-            Username: email,
-            Password: password
-        });
-
-        var cognitoUser = createCognitoUser(email);
-        cognitoUser.authenticateUser(authenticationDetails, {
-            //onSuccess: onSuccess,
-            onSuccess: function(session) {
-              const tokens = {
-                accessToken: session.getAccessToken().getJwtToken(),
-                idToken: session.getIDToken().getJwtToken(),
-                refreshToken: session.getRefreshToken.getJwtToken()
-              }
-              cognitoUser['tokens'] = tokens;
-              resolve(cognitoUser);
-            },
-            onFailure: onFailure
-        });
-    }
-
-    function verify(email, code, onSuccess, onFailure) {
-        createCognitoUser(email).confirmRegistration(code, true, function confirmCallback(err, result) {
-            if (!err) {
-                onSuccess(result);
-            } else {
-                onFailure(err);
-            }
-        });
-    }
-
     function createCognitoUser(email) {
         return new AmazonCognitoIdentity.CognitoUser({
             Username: email,
             Pool: userPool
         });
     }
-
-    /*
-     *  Event Handlers
-     */
-
-    $(function onDocReady() {
-        $('#loginForm').submit(handleLogin);
-        $('#registrationForm').submit(handleRegister);
-        $('#verifyForm').submit(handleVerify);
-    });
 
     function handleLogin(event) {
         const email = $('#emailInputLogin').val();
@@ -120,39 +113,64 @@ var ProjectManagementApp = window.projectManagementApp || {};
         );
     }
 
-    function loginSuccess(emailRef) {
-        alert("Logged In");
-        $('#title').append(
-          '<h2>Logged In as SADASDASD' + emailRef + '</h2>'
-        )
+    function login(email, password, onSuccess, onFailure) {
+        var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+            Username: email,
+            Password: password
+        });
+
+        var cognitoUser = createCognitoUser(email);
+        cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: onSuccess,
+            onFailure: onFailure
+        });
     }
 
-    function handleRegister(event) {
-        var email = $('#emailInputRegister').val();
-        var password = $('#passwordInputRegister').val();
-        var passwordConfirm = $('#passwordConfirmInputRegister').val();
+    function loginSuccess(emailRef) {
+      //var cognitoUser = userPool.getCurrentUser();
+      //var currentSession = cognitoUser.getSession();
+      //alert("Logged in as" + currentSession.fetchCurrentAuthToke());
+      const tokens = {
+        accessToken: session.getAccessToken().getJwtToken(),
+        idToken: session.getIDToken().getJwtToken(),
+        refreshToken: session.getRefreshToken.getJwtToken()
+      }
+      //cognitoUser['tokens'] = tokens;
+      //resolve(cognitoUser);
 
-        var onSuccess = function registerSuccess(result) {
-            var cognitoUser = result.user;
-            //console.log('user name is ' + cognitoUser.getUsername());
 
-            var confirmation = ('Registration successful.');
-            if (confirmation) {
-              alert("Registration Successful");
-              $('#loginRegisterPopUp').modal('hide');
-              $('#verifyUserPopUp').modal('show');
-            }
-        };
-        var onFailure = function registerFailure(err) {
-            alert(err);
-        };
-        event.preventDefault();
 
-        if (password === passwordConfirm) {
-            register(email, password, onSuccess, onFailure);
-        } else {
-            alert('Passwords do not match');
-        }
+      $.ajax({
+        type: 'GET',
+        url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/developmentStage/getProjects',
+
+          success: function(data){
+            data.Items.forEach(function(projectItem){
+                $('#projects').append(
+                  '<div class="col-md-6" style="margin: 0.5%;">' +
+                    '<div class="card">' +
+                      '<div class="card-body row">' +
+                        '<div class="col-md-10">' +
+                          '<div class="card-title">' +
+                            projectItem.projectName +
+                          '</div>' +
+                          '<div class="card-text">' +
+                            'Status: ' + projectItem.status +
+                          '</div>' +
+                        '</div>' +
+                        '<div class="col-md-2">' +
+                          '<button class="btn btn-info col-sm-12 row" type="submit" data-toggle="modal" data-target="#editProjectPopUp" style="margin: 2%;"><i class="fas fa-edit"></i></button>' +
+                          '<button class="btn btn-info col-sm-12 row" type="submit" style="margin: 2%;"> <i class="fas fa-trash-alt"></i></button>' +
+                        '</div>' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>'
+                )
+            });
+
+            $('#title2').append('<h2>Logged In as ' + emailRef + '</h2>');
+          }
+        })
     }
 
     function handleVerify(event) {
@@ -170,4 +188,40 @@ var ProjectManagementApp = window.projectManagementApp || {};
             }
         );
     }
+
+    function verify(email, code, onSuccess, onFailure) {
+        createCognitoUser(email).confirmRegistration(code, true, function confirmCallback(err, result) {
+            if (!err) {
+                onSuccess(result);
+            } else {
+                onFailure(err);
+            }
+        });
+    }
+
+
+    /*
+    //Sets up the cognito user session using the current session access tokens
+
+    const AccessToken = new CognitoAccessToken({ AccessToken: tokens.accessToken });
+    const IdToken = new CognitoIdToken({ IdToken: tokens.idToken });
+    const RefreshToken = new CognitoRefreshToken({ RefreshToken: tokens.refreshToken });
+
+    const sessionInfo = {
+      idToken: IdToken,
+      AccessToken: AccessToken,
+      RefreshToken: RefreshToken
+    };
+
+    const userSession = new CognitoUserSession(sessionInfo);
+
+    cognitoUser.setSignInUserSession(userSession);
+    */
+
+
+
+
+
+
+
 }(jQuery));
