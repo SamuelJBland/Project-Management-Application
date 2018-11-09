@@ -1,7 +1,6 @@
 body{
   background-color: #dddbfd;
   font-family: "Trebuchet MS";
-
 }
 
 #title {
@@ -23,9 +22,8 @@ body{
     margin-top: 2%;
 }
 
-#projectsContainer {
+#projectsContainer, usersContainer {
   margin: 1%;
-
 }
 
 .collapse{

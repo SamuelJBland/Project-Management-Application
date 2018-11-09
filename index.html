@@ -98,6 +98,7 @@
       </div>
     </div>
   </div>
+
 <!--
   <div id="authTokenModal" class="modal fade" role="dialog">
      <div class="modal-dialog" role="document">
@@ -184,36 +185,7 @@
     </div>
   </div>
 
-  <!--Register
-  <div class="info panel panel-default">
-          <div class="panel-heading">
-              <button id="request" class="btn btn-primary" disabled="disabled">Set pickup</button>
-              <div class="dropdown pull-right">
-                  <button id="accountLink" class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Account <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="accountLink">
-                      <li><a id="signOut" href="#">Sign out</a></li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-
-      <div id="noApiMessage" class="configMessage" style="display: none;">
-          <div class="backdrop"></div>
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                  <h3 class="panel-title">Successfully Authenticated!</h3>
-              </div>
-              <div class="panel-body">
-                  <p>This page is not functional yet because there is no API invoke URL configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 3.</p>
-                  <p>In the meantime, if you'd like to test the Amazon Cognito user pool authorizer for your API, use the auth token below:</p>
-                  <textarea class="authToken"></textarea>
-              </div>
-          </div>
-      </div>
-
-
+<!--
       <div id="authTokenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="authToken">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -242,19 +214,50 @@
   </div>
 
   <div class="container col-lg-12">
-    <div class="row">
-      <div id="projects" class="col-lg-12"></div>
-      <div class="col-md-6 row" style="margin: 1%;">
-        <div class="card">
-          <button class="btn btn-info" data-toggle="modal" data-target="#createProjectPopUp">
-            <div class="card-body row">
-              <div class="col-md-12">
-                <div class="card-text">
-                  Create Project <i class="fas fa-plus-circle"></i>
+    <ul class="nav nav-tabs" role="tablist" style="margin-top: 1%;">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#projectsContainer"><h5>Projects</h5></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#usersContainer"><h5>Users</h5></a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="projectsContainer" class="container tab-pane active tabContainer">
+        <div id="projects" class="col-lg-12"></div>
+        <div class="row">
+          <div class="col-md-6 row" style="margin: 1%;">
+            <div class="card">
+              <button class="btn btn-info" data-toggle="modal" data-target="#createProjectPopUp">
+                <div class="card-body row">
+                  <div class="col-md-12">
+                    <div class="card-text">
+                      Create Project <i class="fas fa-plus-circle"></i>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </button>
             </div>
-          </button>
+          </div>
+        </div>
+      </div>
+      <div id="usersContainer" class="container tab-pane fade tabContainer">
+        <div id="users" class="col-lg-12"></div>
+        <div class="row">
+          <div class="col-md-6 row" style="margin: 1%;">
+            <div class="card">
+              <button class="btn btn-info" data-toggle="modal" data-target="#createUserPopUp">
+                <div class="card-body row">
+                  <div class="col-md-12">
+                    <div class="card-text">
+                      Create User <i class="fas fa-plus-circle"></i>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -296,7 +299,6 @@
   <script src="js/cognito-auth.js"></script>
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-
 
   <script src="js/reactObjectCreation.js"></script>
 
