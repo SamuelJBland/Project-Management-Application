@@ -8,12 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-  <script>
-    var currentURL = window.location.href;
-    //window.location.href = 'https://projectmanagementapplication.auth.eu-west-2.amazoncognito.com/login?response_type=token&client_id=2bt67skrd7sgaf4m399d90tdu9&redirect_uri=https://www.google.co.uk';
 
-    //' + currentURL;
-  </script>
 </head>
 
 <body>
@@ -121,7 +116,7 @@
     <!--Project Edit PopUp-->
     <div class="modal-dialog">
       <div class="modal-content">
-        <form class="form-signin login-block" enctype="application/json">
+        <form id="createProjectForm" class="form-signin login-block" enctype="application/json">
           <h2 class="modal-heading">Create Project</h2>
           <div class="form-group">
             <label for="projectNameInput">Project Name</label>
@@ -152,10 +147,10 @@
   </div>
 
   <div id="editProjectPopUp" class="modal fade" role="dialog">
-    <!--Project Edit PopUp-->
+    <!--Project <embed type="video/quicktime" src="#" width="300" height="300">it PopUp-->
     <div class="modal-dialog">
       <div class="modal-content">
-        <form class="form-signin login-block">
+        <form id="editProjectForm" class="form-signin login-block">
           <h2 class="modal-heading">Edit Project</h2>
           <div class="form-group">
             <label for="projectNameInput">Project Name</label>
@@ -290,13 +285,14 @@
       return false;
     })*/
   </script>
-
+<!--
   <script src="js/vendor/jquery-3.1.0.js"></script>
-  <script src="js/vendor/bootstrap.min.js"></script>
+  <script src="js/vendor/bootstrap.min.js"></script>  -->
   <script src="js/vendor/aws-cognito-sdk.min.js"></script>
   <script src="js/vendor/amazon-cognito-identity.min.js"></script>
   <script src="js/config.js"></script>
   <script src="js/cognito-auth.js"></script>
+  <script src="js/projectHandling.js"></script>
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 

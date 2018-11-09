@@ -112,7 +112,7 @@ var ProjectManagementApp = window.projectManagementApp || {};
             }
         );
 
-        loadUsers();
+        //loadUsers();
     }
 
     function login(email, password, onSuccess, onFailure) {
@@ -142,7 +142,7 @@ var ProjectManagementApp = window.projectManagementApp || {};
 
       $.ajax({
         type: 'GET',
-        url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/deploymentStage/getProjects',
+        url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getprojects',
 
         success: function(data){
           data.Items.forEach(function(projectItem){
@@ -176,7 +176,7 @@ var ProjectManagementApp = window.projectManagementApp || {};
     function loadUsers() {
         $.ajax({
           type: 'GET',
-          url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/deploymentStage/getUsers',
+          url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getprojects',
 
           success: function(data){
             //error("TLETLT");
