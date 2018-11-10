@@ -44,25 +44,25 @@
           <form id="registrationForm" class="container tab-pane fade tabContainer">
             <div class="form-group">
               <label for="emailInputRegister">Email</label>
-              <input id="emailInputRegister" class="form-control inputElement" type="email" placeholder="Email" pattern=".*" required>
+              <input id="emailInputRegister" class="form-control" type="email" placeholder="Email" pattern=".*" required>
             </div>
             <div class="form-group">
               <label for="passwordInputRegister">Password</label>
-              <input id="passwordInputRegister" class="form-control inputElement" type="text"  placeholder="Password" required>
+              <input id="passwordInputRegister" class="form-control" type="text"  placeholder="Password" required>
             </div>
             <div class="form-group">
               <label for="passwordConfirmInputRegister">Password</label>
-              <input id="passwordConfirmInputRegister" class="form-control inputElement" type="text" placeholder="Confirm Password" required>
+              <input id="passwordConfirmInputRegister" class="form-control" type="text" placeholder="Confirm Password" required>
             </div>
             <div class="form-group">
               <label for="userTypeList">User Type</label>
-              <select id="userTypeInput" class="form-control inputElement" name="statusList" required>
+              <select id="userTypeInput" class="form-control" name="statusList" required>
                 <option class="form-control" value="Active">Administrator</option>
                 <!--<option class="form-control" value="Inactive">Project Manager</option>
                 <option class="form-control" value="Inactive">Developer</option>-->
               </select>
             </div>
-            <div class="form-group"  style="margin-top: 2.5%;">
+            <div class="form-group popUpFooter">
               <input id="registerbutton" class="btn btn-primary popUpButtons" type="submit" value="Register">
               <button class="btn close" data-dismiss="modal">Close</button>
             </div>
@@ -80,13 +80,13 @@
           <h2 class="modal-heading">Verify User</h2>
           <div class="form-group">
             <label for="emailInputVerify">Email</label>
-            <input id="emailInputVerify" class="form-control inputElement" type="text" placeholder="Email" name="email">
+            <input id="emailInputVerify" class="form-control" type="text" placeholder="Email" name="email">
           </div>
           <div class="form-group">
             <label for="codeInputVerify">Verification Code</label>
-            <input id="codeInputVerify" class="form-control inputElement" type="text" placeholder="Verification Code" patter=".*" name="verificationCode">
+            <input id="codeInputVerify" class="form-control" type="text" placeholder="Verification Code" patter=".*" name="verificationCode">
           </div>
-          <div class="form-group" style="margin-top: 2.5%;">
+          <div class="form-group popUpFooter">
             <button class="btn btn-primary" type="submit">Verify</button>
             <button class="btn close" data-dismiss="modal">Close</button>
           </div>
@@ -94,24 +94,6 @@
       </div>
     </div>
   </div>
-
-<!--
-  <div id="authTokenModal" class="modal fade" role="dialog">
-     <div class="modal-dialog" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h4 class="modal-title" id="myModalLabel">Your Auth Token</h4>
-               </div>
-               <div class="modal-body">
-                   <textarea class="authToken"></textarea>
-               </div>
-               <div class="modal-footer">
-                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-               </div>
-           </div>
-       </div>
-   </div>
--->
 
   <div id="createProjectPopUp" class="modal fade" role="dialog">
     <!--Project Edit PopUp-->
@@ -121,7 +103,7 @@
           <h2 class="modal-heading">Create Project</h2>
           <div class="form-group">
             <label for="projectNameInput">Project Name</label>
-            <input type="text" class="form-control inputElement" placeholder="Project Name" name="projectName" autocomplete="on">
+            <input type="text" class="form-control" placeholder="Project Name" name="projectName" autocomplete="on">
           </div>
           <!--
           <div class="form-group">
@@ -135,12 +117,12 @@
           -->
           <div class="form-group">
             <label for="statusList">Status</label>
-            <select id="statusInput" class="form-control inputElement" name="status">
+            <select id="statusInput" class="form-control" name="status">
               <option class="form-control" value="active">active</option>
               <option class="form-control" value="inactive">inactive</option>
             </select>
           </div>
-          <div class="form-group" style="margin-top: 2.5%;">
+          <div class="form-group popUpFooter">
             <button class="btn btn-primary" type="submit">Create Project</button>
             <button class="btn close" data-dismiss="modal">Close</button>
           </div>
@@ -176,8 +158,8 @@
               <option class="form-control" value="Inactive">Inactive</option>
             </select>
           </div>
-          <div class="form-group" style="margin-top: 7.5%;">
-            <button class="btn btn-primary" type="submit">Save Changes</button>
+          <div class="form-group popUpFooter">
+            <button id="editProjectButton" class="btn btn-primary" type="submit">Save Changes</button>
             <button class="btn close" data-dismiss="modal">Close</button>
           </div>
         </form>
@@ -203,6 +185,41 @@
           </div>
       </div>
 -->
+
+  <div id="editUserPopUp" class="modal fade" role="dialog">
+    <!--Project <embed type="video/quicktime" src="#" width="300" height="300">it PopUp-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="editUserForm" class="container">
+          <h2 class="modal-heading">Edit User</h2>
+          <div class="form-group">
+            <label for="emailInputRegister">Email</label>
+            <input id="emailInputRegister" class="form-control" type="email" placeholder="Email" pattern=".*" required>
+          </div>
+          <div class="form-group">
+            <label for="passwordInputRegister">Password</label>
+            <input id="passwordInputRegister" class="form-control" type="text"  placeholder="Password" required>
+          </div>
+          <div class="form-group">
+            <label for="passwordConfirmInputRegister">Password</label>
+            <input id="passwordConfirmInputRegister" class="form-control" type="text" placeholder="Confirm Password" required>
+          </div>
+          <div class="form-group">
+            <label for="userTypeList">User Type</label>
+            <select id="userTypeInput" class="form-control" name="statusList" required>
+              <option class="form-control" value="Active">Administrator</option>
+              <option class="form-control" value="Inactive">Project Manager</.option>
+              <option class="form-control" value="Inactive">Developer</option
+            </select>
+          </div>
+          <div class="form-group popUpFooter">
+            <input id="editUserButton" class="btn btn-primary popUpButtons" type="submit" value="Edit User">
+            <button class="btn close" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <div id="title" class="col-lg-12 row">
     <div id="title2" class="col-md-10">
@@ -244,21 +261,6 @@
       </div>
       <div id="usersContainer" class="container tab-pane fade tabContainer">
         <div id="users" class="row"></div>
-        <div class="row">
-          <div class="col-md-6 row" style="margin: 1%;">
-            <div class="card">
-              <button class="btn btn-info" data-toggle="modal" data-target="#createUserPopUp">
-                <div class="card-body row">
-                  <div class="col-md-12">
-                    <div class="card-text">
-                      Create User <i class="fas fa-plus-circle"></i>
-                    </div>
-                  </div>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

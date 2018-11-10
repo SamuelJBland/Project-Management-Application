@@ -47,9 +47,28 @@ var ProjectManagementApp = window.projectManagementApp || {};
 
         $('#createProjectForm').submit(handleProjectCreation);
 
+        $('#editProjectButton').click(handleProjectEdit);
+
+
+
         loginSuccess();
         loadUsers();
     });
+
+    function handleProjectEdit() {
+      /*
+      $.ajax({
+        type: 'GET',
+        url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/editProject',
+
+        success: function(data){
+          alert("project edited)")
+      })
+      */
+
+
+
+    }
 
     function handleProjectCreation() {
       //window.location = currentURL;
@@ -63,7 +82,6 @@ var ProjectManagementApp = window.projectManagementApp || {};
       //loginSuccess();
       //alert("alert");
       //location.replace("D:\Transfer (SSD)\Documents\WORK\University\Year 3\Cloud Computing\Git Repository\Project-Management-Application\index.html");
-
     }
 
      /*
@@ -149,6 +167,7 @@ var ProjectManagementApp = window.projectManagementApp || {};
         });
     }
 
+
     function loginSuccess(emailRef) {
       //var cognitoUser = userPool.getCurrentUser();
       //var currentSession = cognitoUser.getSession();
@@ -179,10 +198,11 @@ var ProjectManagementApp = window.projectManagementApp || {};
                           'Status: ' + projectItem.status +
                         '</div>' +
                       '</div>' +
-                      '<div class="col-md-4">' +
+                      '<form class="col-md-4" action="https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/deleteproject" method="GET">' +
+                        '<input type="hidden" name="projectName" value="' + projectItem.projectName + '">' +
                         '<button class="btn btn-info col-sm-12 row" type="submit" data-toggle="modal" data-target="#editProjectPopUp" style="margin: 2%;"><i class="fas fa-edit"></i></button>' +
-                        '<button class="btn btn-info col-sm-12 row" type="submit" style="margin: 2%;"> <i class="fas fa-trash-alt"></i></button>' +
-                      '</div>' +
+                        '<button class="btn btn-info col-sm-12 row" type="submit" style="margin: 2%;"><i class="fas fa-trash-alt"></i></button>' +
+                      '</from>' +
                     '</div>' +
                   '</div>' +
                 '</div>'
@@ -192,10 +212,10 @@ var ProjectManagementApp = window.projectManagementApp || {};
           $('#title2').append('<h2>Logged In as ' + emailRef + '</h2>');
         }
       })
+
     }
 
     function loadUsers() {
-      
         $.ajax({
           type: 'GET',
           url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getusers',
@@ -209,14 +229,14 @@ var ProjectManagementApp = window.projectManagementApp || {};
                       '<div class="card-body row">' +
                         '<div class="col-md-10">' +
                           '<div class="card-title">' +
-                            user.username +
+                            user.userName +
                           '</div>' +
                           '<div class="card-text">' +
                             'User Type: ' + user.userType +
                           '</div>' +
                         '</div>' +
                         '<div class="col-md-2">' +
-                          '<button class="btn btn-info col-sm-12 row" type="submit" data-toggle="modal" data-target="#editProjectPopUp" style="margin: 2%;"><i class="fas fa-edit"></i></button>' +
+                          '<button class="btn btn-info col-sm-12 row" type="submit" data-toggle="modal" data-target="#editUserPopUp" style="margin: 2%;"><i class="fas fa-edit"></i></button>' +
                           '<button class="btn btn-info col-sm-12 row" type="submit" style="margin: 2%;"> <i class="fas fa-trash-alt"></i></button>' +
                         '</div>' +
                       '</div>' +

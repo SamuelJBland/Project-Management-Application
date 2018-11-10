@@ -20,7 +20,7 @@ class LoginRegisterButton extends React.Component {
     return e(
       'btn',
       { onClick: () => this.setState({ liked: true }) },
-      'Login/Register'
+      'Login/ Register'
     );
   }
 }
