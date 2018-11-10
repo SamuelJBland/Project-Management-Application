@@ -30,7 +30,7 @@
           <form id="loginForm" class="container tab-pane active tabContainer">
             <div class="form-group">
               <label for="emailInputLogin">Email</label>
-              <input id="emailInputLogin" class="form-control" name="email" type="email" placeholder="Email" pattern=".*" required>
+              <input id="emailInputLogin" class="form-control" name="email" type="text" placeholder="Email" pattern=".*" required>
             </div>
             <div class="form-group">
               <label for="passwordInputLogin">Password</label>
@@ -68,29 +68,6 @@
             </div>
           </form>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="verifyUserPopUp" class="modal fade" role="dialog">
-    <!--Project Edit PopUp-->
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form id="verifyform" class="form-signin login-block" enctype="application/json">
-          <h2 class="modal-heading">Verify User</h2>
-          <div class="form-group">
-            <label for="emailInputVerify">Email</label>
-            <input id="emailInputVerify" class="form-control" type="text" placeholder="Email" name="email">
-          </div>
-          <div class="form-group">
-            <label for="codeInputVerify">Verification Code</label>
-            <input id="codeInputVerify" class="form-control" type="text" placeholder="Verification Code" patter=".*" name="verificationCode">
-          </div>
-          <div class="form-group popUpFooter">
-            <button class="btn btn-primary" type="submit">Verify</button>
-            <button class="btn close" data-dismiss="modal">Close</button>
-          </div>
-        </form>
       </div>
     </div>
   </div>

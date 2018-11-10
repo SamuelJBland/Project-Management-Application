@@ -3,7 +3,7 @@
 (function scopeWrapper($) {
 
     $(function onDocReady() {
-      checkSessionState();
+      handleSessionState();
 
       $('#loginForm').submit(handleLogin);
       $('#registrationForm').submit(handleRegister);
@@ -11,26 +11,30 @@
 
       $('#createProjectForm').submit(handleProjectCreation);
       $('#editProjectButton').click(handleProjectEdit);
-      loginSuccess();
-      loadUsers();
+
+      projectsAccessControl();
     });
 
-    function checkSessionState() {
-      var currentSessionStatus = window.localStorage.getItem('LoginStatus');
-      if(currentSessionStatus == "loggedIn") {
-        var currentUser = window.localStorage.getItem('LoggedInUser');
-        //$('#loginRegisterButton').text('Log Out');
+    function handleSessionState() {
+      var currentSessionStatus = localStorage.getItem('LoginStatus');
+      alert(currentSessionStatus);
+
+      if(currentSessionStatus == 'loggedIn') {
+        var currentUser = localStorage.getItem('LoggedInUser');
+        var password = localStorage.getItem('CurrentPassword');
+
         $('#userButtonContainer').html(
           '<form>' +
             '<button id="logOutButton" class="btn btn-lg btn-info" onclick="' + logOutUser() + '">Log Out</button>' +
           '</form>'
         )
+        projectsAccessControl(currentUser, password);
       }
     }
 
     function logOutUser() {
-      window.localStorage.setItem('LoginStatus', 'loggedOut');
-      window.localStorage.setItem('LoggedInUser', 'N/A');
+      localStorage.setItem('LoginStatus', 'loggedOut');
+      localStorage.setItem('LoggedInUser', 'N/A');
     }
 
     function handleProjectEdit() {
@@ -48,7 +52,6 @@
 
          var onSuccess = function registerSuccess(result) {
              var cognitoUser = result.user;
-             //console.log('user name is ' + cognitoUser.getUsername());
 
              var confirmation = ('Registration successful.');
              if (confirmation) {
@@ -70,54 +73,39 @@
      }
 
     function register(email, password, onSuccess, onFailure) {
-        var dataEmail = {
-            Name: 'email',
-            Value: email
-        };
-        var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
 
-        userPool.signUp(email, password, [attributeEmail], null,
-            function signUpCallback(err, result) {
-                if (!err) {
-                    onSuccess(result);
-                } else {
-                    onFailure(err);
-                }
-            }
-        );
-    }
-
-    function createCognitoUser(email) {
-        return new AmazonCognitoIdentity.CognitoUser({
-            Username: email,
-            Pool: userPool
-        });
     }
 
     function handleLogin(event) {
-      const email = $('#emailInputLogin').val();
-      const password = $('#passwordInputLogin').val();
-      //var userType = $('#userTypeInput').val();
+      var email = $('#emailInputLogin').val();
+      var password = $('#passwordInputLogin').val();
 
-      //var loginStatus = $('#emailInputLogin').val();
+      projectsAccessControl(email, password);
 
-      loginSuccess(email);
-
-      window.localStorage.setItem('LoginStatus', 'loggedIn');
-      window.localStorage.setItem('LoggedInUser', email);
+      //Sets the persistent session data, to be checked and loaded on reload of the page (index.html)
+      localStorage.setItem('LoginStatus', 'loggedIn');
+      localStorage.setItem('LoggedInUser', email);
+      localStorage.setItem('CurrentPassword', password);
     }
 
-    function loginSuccess(emailRef) {
+    function projectsAccessControl(emailRef, password) {
+
       $.ajax({
         type: 'GET',
         url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getusers',
 
         success: function(data){
-
           data.Items.forEach(function(user){
+
             if (user.userName == emailRef) {
-              if (user.userType == "Administrator" || user.userType == "Project Manager") {
-                loadProjects();
+              if (user.password == password) {
+                alert(user.userType);
+                if (user.userType == "Administrator" || user.userType == "Project Manager") {
+                  loadProjects();
+                  if (user.userType == "Administrator") {
+                    loadUsers();
+                  }
+                }
               }
             }
           });
@@ -154,7 +142,7 @@
                 '</div>'
               )
           });
-          $('#title2').append('<h2>Logged In as ' + emailRef + '</h2>');
+          $('#title2').html('<h2>Logged In as ' + emailRef + '</h2>');
         }
       })
     }
