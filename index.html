@@ -43,19 +43,19 @@
           <form id="registrationForm" class="container tab-pane fade tabContainer">
             <div class="form-group">
               <label for="emailInputRegister">Email</label>
-              <input id="emailInputRegister" class="form-control" type="email" placeholder="Email" pattern=".*" required>
+              <input id="emailInputRegister" class="form-control inputElement" type="email" placeholder="Email" pattern=".*" required>
             </div>
             <div class="form-group">
               <label for="passwordInputRegister">Password</label>
-              <input id="passwordInputRegister" class="form-control" type="text"  placeholder="Password" required>
+              <input id="passwordInputRegister" class="form-control inputElement" type="text"  placeholder="Password" required>
             </div>
             <div class="form-group">
               <label for="passwordConfirmInputRegister">Password</label>
-              <input id="passwordConfirmInputRegister" class="form-control" type="text" placeholder="Confirm Password" required>
+              <input id="passwordConfirmInputRegister" class="form-control inputElement" type="text" placeholder="Confirm Password" required>
             </div>
             <div class="form-group">
-              <label for="statusList">User Type</label>
-              <select class="form-control" name="statusList" required>
+              <label for="userTypeList">User Type</label>
+              <select id="userTypeInput" class="form-control inputElement" name="statusList" required>
                 <option class="form-control" value="Active">Administrator</option>
                 <!--<option class="form-control" value="Inactive">Project Manager</option>
                 <option class="form-control" value="Inactive">Developer</option>-->
@@ -79,11 +79,11 @@
           <h2 class="modal-heading">Verify User</h2>
           <div class="form-group">
             <label for="emailInputVerify">Email</label>
-            <input id="emailInputVerify" class="form-control" type="text" placeholder="Email" name="email">
+            <input id="emailInputVerify" class="form-control inputElement" type="text" placeholder="Email" name="email">
           </div>
           <div class="form-group">
             <label for="codeInputVerify">Verification Code</label>
-            <input id="codeInputVerify" class="form-control" type="text" placeholder="Verification Code" patter=".*" name="verificationCode">
+            <input id="codeInputVerify" class="form-control inputElement" type="text" placeholder="Verification Code" patter=".*" name="verificationCode">
           </div>
           <div class="form-group" style="margin-top: 2.5%;">
             <button class="btn btn-primary" type="submit">Verify</button>
@@ -116,12 +116,13 @@
     <!--Project Edit PopUp-->
     <div class="modal-dialog">
       <div class="modal-content">
-        <form id="createProjectForm" class="form-signin login-block" enctype="application/json">
+        <form id="createProjectForm" class="form-signin login-block" action="https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/createproject?projectName=&status=" method="GET">
           <h2 class="modal-heading">Create Project</h2>
           <div class="form-group">
             <label for="projectNameInput">Project Name</label>
-            <input type="text" class="form-control" placeholder="Project Name" name="username">
+            <input type="text" class="form-control inputElement" placeholder="Project Name" name="projectName" autocomplete="on">
           </div>
+          <!--
           <div class="form-group">
             <label for="startDateInput">Start Date</label>
             <input type="date" class="form-control" placeholder="Start Date" name="startDate">
@@ -129,12 +130,12 @@
           <div class="form-group">
             <label for="endDateInput">End Date</label>
             <input type="date" class="form-control" placeholder="End Date" name="projectEndDate">
-          </div>
+          </div>-->
           <div class="form-group">
             <label for="statusList">Status</label>
-            <select class="form-control" name="status">
-              <option class="form-control" value="Active">Active</option>
-              <option class="form-control" value="Inactive">Inactive</option>
+            <select id="statusInput" class="form-control inputElement" name="status">
+              <option class="form-control" value="active">active</option>
+              <option class="form-control" value="inactive">inactive</option>
             </select>
           </div>
           <div class="form-group" style="margin-top: 2.5%;">
@@ -154,19 +155,19 @@
           <h2 class="modal-heading">Edit Project</h2>
           <div class="form-group">
             <label for="projectNameInput">Project Name</label>
-            <input type="text" class="form-control" placeholder="Project Name" name="projectNameInput">
+            <input type="text" class="form-control inputElement" placeholder="Project Name" name="projectNameInput" autocomplete="on">
           </div>
           <div class="form-group">
             <label for="startDateInput">Start Date</label>
-            <input type="date" class="form-control" placeholder="Start Date" name="startDateInput">
+            <input type="date" class="form-control inputElement" placeholder="Start Date" name="startDateInput" autocomplete="on">
           </div>
           <div class="form-group">
             <label for="endDateInput">End Date</label>
-            <input type="date" class="form-control" placeholder="End Date" name="endDateInput">
+            <input type="date" class="form-control inputElement" placeholder="End Date" name="endDateInput" autocomplete="on">
           </div>
           <div class="form-group">
             <label for="statusList">Status</label>
-            <select class="form-control" name="statusList">
+            <select class="form-control inputElement" name="statusList">
               <option class="form-control" value="Active">Active</option>
               <option class="form-control" value="Inactive">Inactive</option>
             </select>
@@ -261,15 +262,16 @@
   <div class="footer"></div>
 
   <script type="text/javascript">
-/*
+
     $(window).on('load',function(){
-      $('#loginPopUp').modal('show');
+      //$('#loginPopUp').modal('show');
+      $('.inputElement').webkitSpeech = false;
     });
 
     $(document).ready(function(){
 
     })
-*/
+
     /*$('#submitButton').on('click',function(){
       $.ajax({
         type: 'POST',
@@ -291,7 +293,9 @@
   <script src="js/vendor/aws-cognito-sdk.min.js"></script>
   <script src="js/vendor/amazon-cognito-identity.min.js"></script>
   <script src="js/config.js"></script>
-  <script src="js/cognito-auth.js"></script>
+  <script src="js/amplifyConfig.js"></script>
+  <script src="js/cognitoConfig.js"></script>
+  <script src="js/userHandling.js"></script>
   <script src="js/projectHandling.js"></script>
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>

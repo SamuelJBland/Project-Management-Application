@@ -1,17 +1,55 @@
 /*global _config AmazonCognitoIdentity AWSCognito*/
 
-var ProjectManagementApp = window.projectManagementApp || {};
+$(function onDocReady() {
+    $('#createProjectForm').submit(handleLogin);
+    //$('#editProjectForm').submit(handleRegister);
+});
 
-(function scopeWrapper($) {
+function handleLogin() {
+  alert("test");
+  var projectNameVar = $('#projectNameInput').val();
+  var statusVar = $('#statusInput').val();
+
+  window.location = "https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/createproject?projectName=RONYPROJECT&status=RONYSTATUS";
+  //" + projectName + "=" + projectNameVar;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 
     $(function onDocReady() {
         $('#createProjectForm').submit(createProjectHandler);
         //$('#editProjectForm').submit(editProjectHandler);
     });
 
-    function createProjectHandler() {
-      alert("create");
+    createProjectHandler() {
+      event.preventDefault();
 
+      alert("create");
 
       $.ajax({
         type: 'GET',
@@ -46,4 +84,5 @@ var ProjectManagementApp = window.projectManagementApp || {};
       })
     }
 
-}(jQuery));
+
+*/
