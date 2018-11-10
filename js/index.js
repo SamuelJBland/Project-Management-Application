@@ -1,5 +1,7 @@
 /*global _config AmazonCognitoIdentity AWSCognito*/
 
+const currentURL = window.location.href;
+
 var ProjectManagementApp = window.projectManagementApp || {};
 
 (function scopeWrapper($) {
@@ -38,14 +40,33 @@ var ProjectManagementApp = window.projectManagementApp || {};
         }
     });
 
-
     $(function onDocReady() {
         $('#loginForm').submit(handleLogin);
         $('#registrationForm').submit(handleRegister);
         $('#verifyForm').submit(handleVerify);
+
+        $('#createProjectForm').submit(handleProjectCreation);
+
+        loginSuccess();
+        loadUsers();
     });
 
-    /*
+    function handleProjectCreation() {
+      //window.location = currentURL;
+      //alert(currentURL);
+      //$.post('https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/createproject', function() {
+        //window.location.href = currentURL;
+        //alert("test");
+      //});
+      //return false;
+
+      //loginSuccess();
+      //alert("alert");
+      //location.replace("D:\Transfer (SSD)\Documents\WORK\University\Year 3\Cloud Computing\Git Repository\Project-Management-Application\index.html");
+
+    }
+
+     /*
      * Cognito User Pool functions
      */
 
@@ -147,10 +168,10 @@ var ProjectManagementApp = window.projectManagementApp || {};
         success: function(data){
           data.Items.forEach(function(projectItem){
               $('#projects').append(
-                '<div class="col-md-6" style="margin: 0.5%;">' +
+                '<div class="col-md-3" style="margin: 0.5%;">' +
                   '<div class="card">' +
                     '<div class="card-body row">' +
-                      '<div class="col-md-10">' +
+                      '<div class="col-md-8">' +
                         '<div class="card-title">' +
                           projectItem.projectName +
                         '</div>' +
@@ -158,7 +179,7 @@ var ProjectManagementApp = window.projectManagementApp || {};
                           'Status: ' + projectItem.status +
                         '</div>' +
                       '</div>' +
-                      '<div class="col-md-2">' +
+                      '<div class="col-md-4">' +
                         '<button class="btn btn-info col-sm-12 row" type="submit" data-toggle="modal" data-target="#editProjectPopUp" style="margin: 2%;"><i class="fas fa-edit"></i></button>' +
                         '<button class="btn btn-info col-sm-12 row" type="submit" style="margin: 2%;"> <i class="fas fa-trash-alt"></i></button>' +
                       '</div>' +
@@ -174,9 +195,10 @@ var ProjectManagementApp = window.projectManagementApp || {};
     }
 
     function loadUsers() {
+      
         $.ajax({
           type: 'GET',
-          url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getprojects',
+          url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getusers',
 
           success: function(data){
             //error("TLETLT");
