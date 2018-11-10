@@ -1,45 +1,92 @@
 /*global _config AmazonCognitoIdentity AWSCognito*/
 
+const currentURL = window.location.href;
+
+var ProjectManagementApp = window.projectManagementApp || {};
+
 (function scopeWrapper($) {
+    var poolData = {
+        UserPoolId: _config.cognito.userPoolId,
+        ClientId: _config.cognito.userPoolClientId
+    };
 
-    $(function onDocReady() {
-      checkSessionState();
+    var userPool;
 
-      $('#loginForm').submit(handleLogin);
-      $('#registrationForm').submit(handleRegister);
-      $('#verifyForm').submit(handleVerify);
+    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
-      $('#createProjectForm').submit(handleProjectCreation);
-      $('#editProjectButton').click(handleProjectEdit);
-      loginSuccess();
-      loadUsers();
+    if (typeof AWSCognito !== 'undefined') {
+        AWSCognito.config.region = _config.cognito.region;
+    }
+
+    ProjectManagementApp.signOut = function signOut() {
+        userPool.getCurrentUser().signOut();
+    };
+
+    ProjectManagementApp.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
+        var cognitoUser = userPool.getCurrentUser();
+
+        if (cognitoUser) {
+            cognitoUser.getSession(function sessionCallback(err, session) {
+                if (err) {
+                    reject(err);
+                } else if (!session.isValid()) {
+                    resolve(null);
+                } else {
+                    resolve(session.getIdToken().getJwtToken());
+                }
+            });
+        } else {
+            resolve(null);
+        }
     });
 
-    function checkSessionState() {
-      var currentSessionStatus = window.localStorage.getItem('LoginStatus');
-      if(currentSessionStatus == "loggedIn") {
-        var currentUser = window.localStorage.getItem('LoggedInUser');
-        //$('#loginRegisterButton').text('Log Out');
-        $('#userButtonContainer').html(
-          '<form>' +
-            '<button id="logOutButton" class="btn btn-lg btn-info" onclick="' + logOutUser() + '">Log Out</button>' +
-          '</form>'
-        )
-      }
-    }
+    $(function onDocReady() {
+        $('#loginForm').submit(handleLogin);
+        $('#registrationForm').submit(handleRegister);
+        $('#verifyForm').submit(handleVerify);
 
-    function logOutUser() {
-      window.localStorage.setItem('LoginStatus', 'loggedOut');
-      window.localStorage.setItem('LoggedInUser', 'N/A');
-    }
+        $('#createProjectForm').submit(handleProjectCreation);
+
+        $('#editProjectButton').click(handleProjectEdit);
+
+
+
+        loginSuccess();
+        loadUsers();
+    });
 
     function handleProjectEdit() {
+      /*
+      $.ajax({
+        type: 'GET',
+        url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/editProject',
+
+        success: function(data){
+          alert("project edited)")
+      })
+      */
+
+
 
     }
 
     function handleProjectCreation() {
+      //window.location = currentURL;
+      //alert(currentURL);
+      //$.post('https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/createproject', function() {
+        //window.location.href = currentURL;
+        //alert("test");
+      //});
+      //return false;
 
+      //loginSuccess();
+      //alert("alert");
+      //location.replace("D:\Transfer (SSD)\Documents\WORK\University\Year 3\Cloud Computing\Git Repository\Project-Management-Application\index.html");
     }
+
+     /*
+     * Cognito User Pool functions
+     */
 
      function handleRegister(event) {
          var email = $('#emailInputRegister').val();
@@ -95,37 +142,44 @@
     }
 
     function handleLogin(event) {
-      const email = $('#emailInputLogin').val();
-      const password = $('#passwordInputLogin').val();
-      //var userType = $('#userTypeInput').val();
+        const email = $('#emailInputLogin').val();
+        var password = $('#passwordInputLogin').val();
+        event.preventDefault();
+        login(email, password, loginSuccess(email),
+            function loginError(err) {
+                alert(err);
+            }
+        );
 
-      //var loginStatus = $('#emailInputLogin').val();
-
-      loginSuccess(email);
-
-      window.localStorage.setItem('LoginStatus', 'loggedIn');
-      window.localStorage.setItem('LoggedInUser', email);
+        //loadUsers();
     }
+
+    function login(email, password, onSuccess, onFailure) {
+        var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+            Username: email,
+            Password: password
+        });
+
+        var cognitoUser = createCognitoUser(email);
+        cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: onSuccess,
+            onFailure: onFailure
+        });
+    }
+
 
     function loginSuccess(emailRef) {
-      $.ajax({
-        type: 'GET',
-        url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getusers',
+      //var cognitoUser = userPool.getCurrentUser();
+      //var currentSession = cognitoUser.getSession();
+      //alert("Logged in as" + currentSession.fetchCurrentAuthToke());
+      //const tokens = {
+      //  accessToken: session.getAccessToken().getJwtToken(),
+      //  idToken: session.getIDToken().getJwtToken(),
+      //  refreshToken: session.getRefreshToken.getJwtToken()
+      //}
+      //cognitoUser['tokens'] = tokens;
+      //resolve(cognitoUser);
 
-        success: function(data){
-
-          data.Items.forEach(function(user){
-            if (user.userName == emailRef) {
-              if (user.userType == "Administrator" || user.userType == "Project Manager") {
-                loadProjects();
-              }
-            }
-          });
-        }
-      })
-    }
-
-    function loadProjects() {
       $.ajax({
         type: 'GET',
         url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getprojects',
@@ -154,9 +208,11 @@
                 '</div>'
               )
           });
+
           $('#title2').append('<h2>Logged In as ' + emailRef + '</h2>');
         }
       })
+
     }
 
     function loadUsers() {
@@ -165,6 +221,7 @@
           url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getusers',
 
           success: function(data){
+            //error("TLETLT");
             data.Items.forEach(function(user){
                 $('#users').append(
                   '<div class="col-md-3" style="margin: 0.5%;">' +
@@ -217,5 +274,23 @@
             }
         });
     }
+
+    /*
+    //Sets up the cognito user session using the current session access tokens
+
+    const AccessToken = new CognitoAccessToken({ AccessToken: tokens.accessToken });
+    const IdToken = new CognitoIdToken({ IdToken: tokens.idToken });
+    const RefreshToken = new CognitoRefreshToken({ RefreshToken: tokens.refreshToken });
+
+    const sessionInfo = {
+      idToken: IdToken,
+      AccessToken: AccessToken,
+      RefreshToken: RefreshToken
+    };
+
+    const userSession = new CognitoUserSession(sessionInfo);
+
+    cognitoUser.setSignInUserSession(userSession);
+    */
 
 }(jQuery));

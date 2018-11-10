@@ -30,11 +30,11 @@
           <form id="loginForm" class="container tab-pane active tabContainer">
             <div class="form-group">
               <label for="emailInputLogin">Email</label>
-              <input id="emailInputLogin" class="form-control" type="email" placeholder="Email" pattern=".*" required>
+              <input id="emailInputLogin" class="form-control" name="email" type="email" placeholder="Email" pattern=".*" required>
             </div>
             <div class="form-group">
               <label for="passwordInputLogin">Password</label>
-              <input id="passwordInputLogin" class="form-control" type="text" placeholder="Password" required>
+              <input id="passwordInputLogin" class="form-control" name="password"  type="text" placeholder="Password" required>
             </div>
             <div class="form-group"  style="margin-top: 2.5%;">
               <input id="loginButton" class="btn btn-primary popUpButtons" type="submit" value="Log In">
@@ -225,7 +225,7 @@
     <div id="title2" class="col-md-10">
       <h1>Project Management Application</h1>
     </div>
-    <div class="col-md-2">
+    <div id="userButtonContainer" class="col-md-2">
       <button id="loginRegisterButton" class="btn btn-lg btn-info" data-toggle="modal" data-target="#loginRegisterPopUp">Login/ Register</button>
     </div>
   </div>

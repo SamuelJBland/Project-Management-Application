@@ -1,4 +1,4 @@
-import Auth from '@aws-amplify/auth';
+/*import Auth from '@aws-amplify/auth';
 import Analytics from '@aws-amplify/analytics';
 
 import awsconfig from './aws-exports';
@@ -19,4 +19,33 @@ AnalyticsEventButton.addEventListener('click', (evt) => {
             AnalyticsResult.innerHTML += '<p>Events sent: '+(++EventsSent)+'</p>';
             AnalyticsResult.innerHTML += '<a href="'+url+'" target="_blank">View Events on the Amazon Pinpoint Console</a>';
         });
-});
+});*/
+
+import { Auth } from "aws-amplify";
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAuthenticated: false,
+      isAuthenticating: true
+    };
+  }
+
+  userHasAuthenticated = authenticated => {
+    this.setState({ isAuthenticated: authenticated });
+  }
+
+  render() {
+    const childProps = {
+      isAuthenticated: this.state.isAuthenticated,
+      userHasAuthenticated: this.userHasAuthenticated
+    };
+
+
+    return (
+
+    );
+  }
+}
+export default App;
