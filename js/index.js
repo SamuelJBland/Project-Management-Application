@@ -1,72 +1,74 @@
-/*global _config AmazonCognitoIdentity AWSCognito*/
-
 (function scopeWrapper($) {
   $(document).ready(function() {
-      handleSessionState();
-      $('#loginForm').submit(handleLogin);
-      $('#logOutButton').click(function() {
-        if(localStorage.getItem('LoginStatus') == 'loggedIn') {
-          localStorage.setItem('LoginStatus', 'loggedOut');
-          localStorage.setItem('LoggedInUser', 'N/A');
-          alert("Logged Out");
-        }
-      });
-      //loadProjects("tester");
-    });
 
+    handleSessionState();
+    $('#loginForm').submit(handleLogin);
+    $('#logOutButton').click(function() {
+      if(localStorage.getItem('LoginStatus') == 'loggedIn') { //logs out the user
+        localStorage.setItem('LoginStatus', 'loggedOut');
+        localStorage.setItem('LoggedInUser', 'N/A');
+        location.reload(); //refreshes the page once the user is logged out of the session
+        alert("Logged Out");
+      }
+    });
+  });
+    //checks if the page is logged in or not, then logs in the user if so
     function handleSessionState() {
-      var currentSessionStatus = localStorage.getItem('LoginStatus');
-      if(currentSessionStatus == 'loggedIn') {
-        alert("test");
+      if(localStorage.getItem('LoginStatus') == 'loggedIn') {
         loginUser();
-      } else {
-        alert("Not Logged In");
       }
     }
-
+    //sets the local storage values, username and password
     function handleLogin() {
+      localStorage.setItem('LoggedInUser', $("#usernameInputLogin").val());
+      localStorage.setItem('CurrentPassword', $("#passwordInputLogin").val());
       loginUser();
-      alert("Logged in as " + localStorage.getItem('LoggedInUser'));
+      alert("Processing");
     }
-
+    //performs field validation on the inputted login values. Implement access control depending on the users' usertype
     function loginUser() {
       $.ajax({
         type: 'GET',
         url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getusers',
         success: function(data){
-          var currentUser = $('#usernameInputLogin').val();
-          var password = $('#passwordInputLogin').val();
           var count = 0;
           data.Items.forEach(function(user){
-            if (user.userName == currentUser && user.password == password) {
-              loadProjects(currentUser);
-              if (user.userType == "Administrator") {
+            if (user.userName == localStorage.getItem('LoggedInUser') && user.password == localStorage.getItem('CurrentPassword')) { //loads the projects if both the password and username is correct
+              loadProjects();
+              $('#createProjectContainer').html(
+                '<div class="col-md-6 row" style="margin: 1%;">' +
+                  '<div class="card">'+
+                    '<button class="btn btn-info" data-toggle="modal" data-target="#createProjectPopUp">' +
+                      '<div class="card-body row">' +
+                        '<div class="col-md-12">' +
+                          '<div class="card-text">' +
+                            'Create Project <i class="fas fa-plus-circle"></i>' +
+                          '</div>' +
+                        '</div>' +
+                      '</div>' +
+                    '</button>' +
+                  '</div>' +
+                '</div>'
+              )
+              if (user.userType == "Administrator") { //loads the users as well if the user in an administrator
                 loadUsers();
                 $('#registrationForm').css('display', 'none');
+              } else {
+                $('#users').append('<h4>' + user.userType + 's cannot view users');
               }
-              //Sets the persistent session data, to be checked and loaded on reload of the page (index.html)
-              localStorage.setItem('LoginStatus', 'loggedIn');
-              localStorage.setItem('LoggedInUser', currentUser);
-              localStorage.setItem('CurrentPassword', password);
-            } else {
-              count = count + 1;
-              if (count == data.Count && localStorage.getItem('LoginStatus') != 'loggedIn') {
-                alert("Incorrect username or password");
-                //exit;
-              }
+              localStorage.setItem('LoginStatus', 'loggedIn');               //Sets the persistent session data, to be checked and loaded on reload of the page (index.html)
+              alert("Logged in as " + localStorage.getItem('LoggedInUser'));
             }
           });
         }
       })
     }
-
-    function loadProjects(usernameRef) {
-      alert("tester");
+    //Loads the list of projects and appends a div to display each project in a bootstrap 'card'
+    function loadProjects() {
       $.ajax({
         type: 'GET',
         url:'https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/getprojects',
         success: function(data){
-
           data.Items.forEach(function(projectItem){
               $('#projects').append(
                 '<div class="col-md-3" style="margin: 0.5%;">' +
@@ -90,11 +92,11 @@
                 '</div>'
               )
           });
-          $('#title2').html('<h2>Logged In as ' + usernameRef + '</h2>');*/
+          $('#title2').append('<h2>Logged In as ' + localStorage.getItem('LoggedInUser') + '</h2>');
         }
       })
     }
-
+    //Loads the list of users and appends a div to display each user in a bootstrap 'card'
     function loadUsers() {
       $.ajax({
         type: 'GET',
