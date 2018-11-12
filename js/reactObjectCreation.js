@@ -14,7 +14,7 @@ class LoginRegisterButton extends React.Component {
       //if login = true
       //login();
       //loadProjects();
-      return 'Log Out';
+      return 'Login/ Register';
     }
 
     return e(

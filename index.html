@@ -29,8 +29,8 @@
         <div class="tab-content">
           <form id="loginForm" class="container tab-pane active tabContainer">
             <div class="form-group">
-              <label for="emailInputLogin">Email</label>
-              <input id="emailInputLogin" class="form-control" name="email" type="text" placeholder="Email" pattern=".*" required>
+              <label for="usernameInputLogin">Email</label>
+              <input id="usernameInputLogin" class="form-control" name="userName" type="text" placeholder="Username" pattern=".*" required>
             </div>
             <div class="form-group">
               <label for="passwordInputLogin">Password</label>
@@ -41,25 +41,21 @@
               <button class="btn close" data-dismiss="modal">Close</button>
             </div>
           </form>
-          <form id="registrationForm" class="container tab-pane fade tabContainer">
+          <form id="registrationForm" class="container tab-pane fade tabContainer" action="https://khpfxud07b.execute-api.eu-west-2.amazonaws.com/dev/createuser" method="GET">
             <div class="form-group">
-              <label for="emailInputRegister">Email</label>
-              <input id="emailInputRegister" class="form-control" type="email" placeholder="Email" pattern=".*" required>
+              <label for="usernameInputRegister">Email</label>
+              <input id="usernameInputRegister" class="form-control" name="userName" type="text" placeholder="Username" pattern=".*" required>
             </div>
             <div class="form-group">
               <label for="passwordInputRegister">Password</label>
-              <input id="passwordInputRegister" class="form-control" type="text"  placeholder="Password" required>
-            </div>
-            <div class="form-group">
-              <label for="passwordConfirmInputRegister">Password</label>
-              <input id="passwordConfirmInputRegister" class="form-control" type="text" placeholder="Confirm Password" required>
+              <input id="passwordInputRegister" class="form-control" name="password" type="text"  placeholder="Password" required>
             </div>
             <div class="form-group">
               <label for="userTypeList">User Type</label>
-              <select id="userTypeInput" class="form-control" name="statusList" required>
-                <option class="form-control" value="Active">Administrator</option>
-                <!--<option class="form-control" value="Inactive">Project Manager</option>
-                <option class="form-control" value="Inactive">Developer</option>-->
+              <select id="userTypeInput" class="form-control" name="userType" required>
+                <option class="form-control" value="Administrator">Administrator</option>
+                <option class="form-control" value="Project Manager">Project Manager</option>
+                <option class="form-control" value="Developer">Developer</option>
               </select>
             </div>
             <div class="form-group popUpFooter">
@@ -103,9 +99,7 @@
             <button class="btn btn-primary" type="submit">Create Project</button>
             <button class="btn close" data-dismiss="modal">Close</button>
           </div>
-
-          <!--<input type="hidden" name="redirect" value="D:\Transfer (SSD)\Documents\WORK\University\Year 3\Cloud Computing\Git Repository\Project-Management-Application\index.html">
-        --></form>
+        </form>
       </div>
     </div>
   </div>
@@ -199,11 +193,12 @@
   </div>
 
   <div id="title" class="col-lg-12 row">
-    <div id="title2" class="col-md-10">
+    <div id="title2" class="col-md-9">
       <h1>Project Management Application</h1>
     </div>
-    <div id="userButtonContainer" class="col-md-2">
-      <button id="loginRegisterButton" class="btn btn-lg btn-info" data-toggle="modal" data-target="#loginRegisterPopUp">Login/ Register</button>
+    <div id="userButtonContainer" class="col-md-3 row">
+      <button id="loginRegisterButton" class="btn btn-lg btn-info col-md-8" data-toggle="modal" data-target="#loginRegisterPopUp">Login/ Register</button>
+      <button id="logOutButton" class="btn btn-lg btn-danger col-md-3" type="button" style="margin-left: 2%;">Log Out</button>
     </div>
   </div>
 
