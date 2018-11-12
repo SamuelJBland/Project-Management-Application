@@ -52,8 +52,9 @@
               )
               if (user.userType == "Administrator") { //loads the users as well if the user in an administrator
                 loadUsers();
-                $('#registrationForm').css('display', 'none');
+
               } else {
+		            //$('#registrationForm').css('display', 'none');
                 $('#users').append('<h4>' + user.userType + 's cannot view users');
               }
               localStorage.setItem('LoginStatus', 'loggedIn');               //Sets the persistent session data, to be checked and loaded on reload of the page (index.html)
